@@ -6,16 +6,21 @@ public class EnemyVision : MonoBehaviour
     public LayerMask obstacleMask;
     public LayerMask playerMask;
 
+    public EnemyController controller;
+
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            // 1. 检查视线是否被挡住
+            // 视线射线检测：是否被墙挡住
             Vector3 dir = other.transform.position - enemy.position;
+
             if (!Physics.Raycast(enemy.position, dir, out RaycastHit hit, 10f, obstacleMask))
             {
-                Debug.Log(" Player detected!");
+                Debug.Log("Player detected!");
+                controller.ChasePlayer(); // 触发追击！
             }
         }
     }
+
 }
