@@ -17,9 +17,19 @@ public class EnemyVision : MonoBehaviour
 
             if (!Physics.Raycast(enemy.position, dir, out RaycastHit hit, 10f, obstacleMask))
             {
-                Debug.Log("Player detected!");
-                controller.ChasePlayer(); // 触发追击！
+                Debug.Log("Player detected");
+                controller.ChasePlayer(); // 触发追击
+
+                /*
+                // 玩家被抓
+                float distance = Vector3.Distance(other.transform.position, enemy.position);
+                if (distance < 1.2f)
+                {
+                    GameManager.Instance.PlayerCaught();
+                }
+                */
             }
+
         }
     }
 
