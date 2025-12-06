@@ -10,26 +10,36 @@ public class EnemyVision : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!other.CompareTag("Player")) return;
+
+        Vector3 dir = other.transform.position - enemy.position;
+
+        // 射线检测：是否有墙挡住
+        if (!Physics.Raycast(enemy.position, dir, out RaycastHit hit, 10f, obstacleMask))
         {
-            // 视线射线检测：是否被墙挡住
-            Vector3 dir = other.transform.position - enemy.position;
-
-            if (!Physics.Raycast(enemy.position, dir, out RaycastHit hit, 10f, obstacleMask))
+            // 没挡住 → 真正看到玩家
+            // Debug.Log("Player detected");
+            controller.PlayerSeen();
+        }
+        else
+        {
+            
+            if (controller.currentState != EnemyState.Chase)
             {
-                Debug.Log("Player detected");
-                controller.ChasePlayer(); // 触发追击
-
-                /*
-                // 玩家被抓
-                float distance = Vector3.Distance(other.transform.position, enemy.position);
-                if (distance < 1.2f)
-                {
-                    GameManager.Instance.PlayerCaught();
-                }
-                */
+                // 有墙挡住 → 玩家在附近但看不到 → 显示 ?
+                controller.PlayerNearButNotSeen();
             }
+        }
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (!other.CompareTag("Player")) return;
+
+        // 只有 Patrol 才需要隐藏图标
+        if (controller.currentState == EnemyState.Patrol)
+        {
+            controller.PlayerOutOfVision();
         }
     }
 

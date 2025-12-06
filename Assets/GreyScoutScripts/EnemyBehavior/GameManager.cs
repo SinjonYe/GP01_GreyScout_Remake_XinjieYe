@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    [Header("Player Respawn")]
     public Transform player;
     public Transform playerSpawnPoint;
     public CanvasGroup fadeScreen;
@@ -14,21 +15,20 @@ public class GameManager : MonoBehaviour
     public EnemyController enemyController;
     public float fadeDuration = 1f;
 
+    [Header("Hostage UI")]
+    public TMP_Text hostageCountText;   // HUD 上显示 "1 / 1 rescued"
+
     public int totalHostages = 1;   // 场景里一共有多少人质
     private int rescuedHostages = 0;
-
-    public TextMeshProUGUI victoryText;
-
-    public void ShowVictory()
-    {
-        var c = victoryText.color;
-        c.a = 1;
-        victoryText.color = c;
-    }
 
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        UpdateHostageUI();
     }
 
     public void PlayerCaught()
@@ -68,38 +68,40 @@ public class GameManager : MonoBehaviour
 
         while (time < fadeDuration)
         {
-            time += Time.deltaTime;
+            time += Time.unscaledDeltaTime;   // 支持暂停
             fadeScreen.alpha = Mathf.Lerp(start, target, time / fadeDuration);
             yield return null;
         }
     }
 
+    // --- Hostage Rescue System ---
     public void HostageRescued()
     {
         rescuedHostages++;
+        UpdateHostageUI();
 
         Debug.Log("Hostage rescued: " + rescuedHostages + " / " + totalHostages);
 
         if (rescuedHostages >= totalHostages)
         {
-            StartCoroutine(VictorySequence());
+            StartCoroutine(VictoryRoutine());
         }
     }
 
-    IEnumerator VictorySequence()
+    void UpdateHostageUI()
     {
-        // 简单做法：直接淡出黑屏，代表通关
+        if (hostageCountText != null)
+        {
+            hostageCountText.text = $"{rescuedHostages} / {totalHostages} rescued";
+        }
+    }
+
+    IEnumerator VictoryRoutine()
+    {
         yield return StartCoroutine(Fade(1));
 
-        Debug.Log("YOU WIN! All hostages rescued!");
-
-        // TODO：这里你后面可以做：
-        // - 切换场景
-        // - 显示胜利UI
-        // - 返回主菜单 等等
-
-        // 显示胜利文字
-        ShowVictory();
+        // 调用 FlowManager 打开胜利界面
+        FlowManager.Instance.ShowWin();
     }
 
 

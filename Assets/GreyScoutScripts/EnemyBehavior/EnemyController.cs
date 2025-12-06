@@ -26,6 +26,8 @@ public class EnemyController : MonoBehaviour
     public float chaseTimeBeforeLost = 2f;
     private float chaseTimer = 0f;
 
+    public EnemyAlertUI alertUI;
+
     private void Start()
     {
         ResetPatrol();
@@ -48,12 +50,15 @@ public class EnemyController : MonoBehaviour
         else if (currentState == EnemyState.Lost)
         {
             ResetPatrol();
+            alertUI.Hide();   // 回到巡逻隐藏图标
         }
     }
 
     // 玩家进入视野时调用
     public void ChasePlayer()
     {
+        if (currentState == EnemyState.Chase) return; // 避免重复调用
+
         currentState = EnemyState.Chase;
         chaseTimer = 0;
 
@@ -62,6 +67,9 @@ public class EnemyController : MonoBehaviour
         visionRotate.enabled = false;
 
         agent.speed = chaseSpeed;
+
+        // 在追击开始时，强制显示
+        alertUI.ShowAlert();
     }
 
     public void ChangeState(EnemyState newState)
@@ -88,5 +96,40 @@ public class EnemyController : MonoBehaviour
 
         // 切换状态
         ChangeState(EnemyState.Patrol);
+
+        if (alertUI != null)
+        {
+            alertUI.Hide();
+        }
+
     }
+
+    public void PlayerNearButNotSeen()
+    {
+        // 只有在巡逻状态下才显示 ?
+        if (currentState == EnemyState.Patrol && alertUI != null)
+        {
+            alertUI.ShowSuspicious();
+        }
+    }
+
+    public void PlayerSeen()
+    {
+        if (alertUI != null)
+        {
+            alertUI.ShowAlert();
+        }
+
+        // 进入追击
+        ChasePlayer();
+    }
+
+    public void PlayerOutOfVision()
+    {
+        if (alertUI != null)
+        {
+            alertUI.Hide();
+        }
+    }
+
 }
