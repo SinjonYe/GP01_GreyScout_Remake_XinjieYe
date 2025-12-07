@@ -2,65 +2,77 @@ using UnityEngine;
 
 public class HostageRescue : MonoBehaviour
 {
-    public HumanRescueTrigger trigger;
-    public float rescueTime = 3f;  // 按住 E 多久完成营救
+    public HumanRescueTrigger trigger; // 交互触发区域
+    public float rescueTime = 3f;      // 按住 E 的时间
 
-    private float rescueProgress = 0f;
-    public bool rescued = false;
+    private float rescueProgress = 0f; // 当前进度
+    private bool rescued = false;      // 是否已被救
+
+    private void Start()
+    {
+        // 关键：把自己绑定给 InteractionArea
+        trigger.parentHostage = this;
+    }
 
     private void Update()
     {
         if (rescued) return;
 
-        if (trigger.playerInside)
+        // 玩家不在区域内 → 全部 UI 隐藏
+        if (!trigger.playerInside)
         {
-            // ----------- 玩家进入范围，显示 Press E -----------
-            if (!Input.GetKey(KeyCode.E))
-            {
-                RescueUIManager.Instance.ShowPressE();
-                RescueUIManager.Instance.Hide();   // 不显示进度条
-            }
-
-            // ----------- 玩家按住 E 进行解救 -----------
-            if (Input.GetKey(KeyCode.E))
-            {
-                RescueUIManager.Instance.HidePressE(); // 按下E隐藏提示
-                RescueUIManager.Instance.Show();       // 显示进度条
-
-                rescueProgress += Time.deltaTime;
-                RescueUIManager.Instance.SetProgress(rescueProgress / rescueTime);
-
-                if (rescueProgress >= rescueTime)
-                {
-                    CompleteRescue();
-                }
-            }
-            else
-            {
-                // 松手时进度条开始倒退
-                rescueProgress = Mathf.Max(0, rescueProgress - Time.deltaTime * 1.2f);
-                RescueUIManager.Instance.SetProgress(rescueProgress / rescueTime);
-            }
-        }
-        else
-        {
-            // 不在范围内 → 全部隐藏
-            RescueUIManager.Instance.Hide();
-            RescueUIManager.Instance.HidePressE();
+            RescueUIManager.Instance.HideAll();
             rescueProgress = 0;
+            return;
+        }
+
+        // 玩家在范围内但是没有按 E → 显示 Press E
+        if (!Input.GetKey(KeyCode.E))
+        {
+            RescueUIManager.Instance.ShowPressE();
+            RescueUIManager.Instance.HideProgressBar();
+            return;
+        }
+
+        // 玩家按住 E 时开始加载进度条
+        RescueUIManager.Instance.HidePressE();
+        RescueUIManager.Instance.ShowProgressBar();
+
+        rescueProgress += Time.deltaTime;
+        RescueUIManager.Instance.SetProgress(rescueProgress / rescueTime);
+
+        // 完成救援
+        if (rescueProgress >= rescueTime)
+        {
+            CompleteRescue();
         }
     }
 
-    void CompleteRescue()
+    // 玩家进入范围
+    public void PlayerEntered()
+    {
+        if (!rescued)
+            RescueUIManager.Instance.ShowPressE();
+    }
+
+    // 玩家离开范围
+    public void PlayerExited()
+    {
+        RescueUIManager.Instance.HideAll();
+        rescueProgress = 0;
+    }
+
+    private void CompleteRescue()
     {
         rescued = true;
-        RescueUIManager.Instance.Hide();
-        RescueUIManager.Instance.HidePressE();
 
-        // 告诉 GameManager：救到一个人质
+        // 隐藏所有 UI
+        RescueUIManager.Instance.HideAll();
+
+        // 通知 GameManager
         GameManager.Instance.HostageRescued();
 
-        // 暂时直接让人质消失
+        // 隐藏人质
         gameObject.SetActive(false);
     }
 }
