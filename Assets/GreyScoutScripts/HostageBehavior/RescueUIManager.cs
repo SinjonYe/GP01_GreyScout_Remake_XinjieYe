@@ -34,13 +34,15 @@ public class RescueUIManager : MonoBehaviour
     public void ShowProgressBar()
     {
         uiGroup.alpha = 1;
-        progressBar.gameObject.SetActive(true);
+        if (progressBar != null)
+            progressBar.gameObject.SetActive(true);
     }
 
     // 隐藏进度条
     public void HideProgressBar()
     {
-        progressBar.gameObject.SetActive(false);
+        if (progressBar != null)
+            progressBar.gameObject.SetActive(false);
     }
 
     // 设置进度条数值

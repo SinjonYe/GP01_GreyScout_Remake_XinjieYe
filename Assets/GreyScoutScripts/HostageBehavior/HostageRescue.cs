@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class HostageRescue : MonoBehaviour
 {
+    // 关键：当前正在交互的人质（全局唯一）
+    public static HostageRescue Current;
+
     public HumanRescueTrigger trigger; // 交互触发区域
     public float rescueTime = 3f;      // 按住 E 的时间
 
@@ -11,18 +14,23 @@ public class HostageRescue : MonoBehaviour
     private void Start()
     {
         // 关键：把自己绑定给 InteractionArea
-        trigger.parentHostage = this;
+        if (trigger != null)
+            trigger.parentHostage = this;
     }
 
     private void Update()
     {
         if (rescued) return;
 
-        // 玩家不在区域内 → 全部 UI 隐藏
+        // 关键：只有 Current 人质才允许控制 UI
+        if (Current != this) return;
+
+        // 玩家不在区域内 → 才隐藏 UI（并且只允许 Current 来隐藏）
         if (!trigger.playerInside)
         {
             RescueUIManager.Instance.HideAll();
             rescueProgress = 0;
+            Current = null; // 离开范围，清空当前交互对象
             return;
         }
 
@@ -48,26 +56,42 @@ public class HostageRescue : MonoBehaviour
         }
     }
 
-    // 玩家进入范围
+    // 玩家进入范围（由 Trigger 调用）
     public void PlayerEntered()
     {
-        if (!rescued)
-            RescueUIManager.Instance.ShowPressE();
+        if (rescued) return;
+
+        // 关键：进入哪个人质范围，就把它设为 Current
+        Current = this;
+
+        // 进入范围立刻显示提示
+        RescueUIManager.Instance.ShowPressE();
+        RescueUIManager.Instance.HideProgressBar();
+        RescueUIManager.Instance.SetProgress(0);
     }
 
-    // 玩家离开范围
+    // 玩家离开范围（由 Trigger 调用）
     public void PlayerExited()
     {
-        RescueUIManager.Instance.HideAll();
-        rescueProgress = 0;
+        // 只有离开的对象是 Current，才允许关 UI（防止别的人质乱关）
+        if (Current == this)
+        {
+            RescueUIManager.Instance.HideAll();
+            rescueProgress = 0;
+            Current = null;
+        }
     }
 
     private void CompleteRescue()
     {
         rescued = true;
 
-        // 隐藏所有 UI
-        RescueUIManager.Instance.HideAll();
+        // 只有 Current 才处理 UI 清理
+        if (Current == this)
+        {
+            RescueUIManager.Instance.HideAll();
+            Current = null;
+        }
 
         // 通知 GameManager
         GameManager.Instance.HostageRescued();
