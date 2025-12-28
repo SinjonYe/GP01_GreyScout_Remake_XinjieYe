@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 5066109098957114446}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.2, z: 0}
+  m_LocalPosition: {x: 0, y: 2.1, z: 0}
   m_LocalScale: {x: 14.62, y: 18.506327, z: 18.506327}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -114,7 +114,7 @@ Transform:
   m_GameObject: {fileID: 5836941733083705619}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c79f7cc6c3acdc9498fb5fee02de3fc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentHostage: {fileID: 0}
   playerInside: 0
 --- !u!1 &8302140832264183038
 GameObject:
@@ -182,7 +183,7 @@ Transform:
   m_GameObject: {fileID: 8302140832264183038}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.9, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -275,6 +276,7 @@ GameObject:
   - component: {fileID: 1115260844465450711}
   - component: {fileID: 6195052376010609663}
   - component: {fileID: 7264239742844486681}
+  - component: {fileID: 3906415018149037192}
   m_Layer: 0
   m_Name: Hostage
   m_TagString: Untagged
@@ -291,7 +293,7 @@ Transform:
   m_GameObject: {fileID: 8524236826643212906}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.02, y: 0.84, z: 16.89}
+  m_LocalPosition: {x: -1.02, y: 0, z: 16.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -314,7 +316,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trigger: {fileID: 3588409389814576335}
   rescueTime: 3
-  rescued: 0
 --- !u!114 &7264239742844486681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,3 +330,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 5038109216048170140}
   direction: {fileID: 5038109216048170140}
+--- !u!195 &3906415018149037192
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8524236826643212906}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 4
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.3
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

@@ -86,17 +86,32 @@ public class HostageRescue : MonoBehaviour
     {
         rescued = true;
 
-        // 只有 Current 才处理 UI 清理
-        if (Current == this)
-        {
-            RescueUIManager.Instance.HideAll();
-            Current = null;
-        }
+        // 隐藏所有 UI（保持原逻辑）
+        RescueUIManager.Instance.HideAll();
 
-        // 通知 GameManager
-        GameManager.Instance.HostageRescued();
+        // 通知 GameManager：这个人质“被救下并加入队伍”
+        GameManager.Instance.HostageRescuedAndFollow(this);
 
         // 隐藏人质
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
+
+    // 被 GameManager 调用：关闭营救交互（防止重复救）
+    public void DisableRescueInteraction()
+    {
+        // 关闭触发器脚本与碰撞器（避免再次触发 PressE）
+        if (trigger != null)
+        {
+            trigger.playerInside = false;
+            trigger.enabled = false;
+
+            Collider col = trigger.GetComponent<Collider>();
+            if (col != null) col.enabled = false;
+        }
+
+        // 也可以把自己这个救援脚本关掉（避免 Update 再跑）
+        this.enabled = false;
+    }
+
+
 }
