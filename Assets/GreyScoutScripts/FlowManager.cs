@@ -17,7 +17,7 @@ public class FlowManager : MonoBehaviour
 
     private void Start()
     {
-        ShowStart();
+        ShowStart(); // 进游戏默认先到开始界面
     }
 
     // 进入「开始界面」状态

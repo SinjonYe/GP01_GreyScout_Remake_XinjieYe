@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     private readonly System.Collections.Generic.List<HostageFollower> followers
         = new System.Collections.Generic.List<HostageFollower>();
 
+    // 新增：防止重复触发胜利（作用：按E不会触发多次，也避免StopAllCoroutines误伤）
+    private bool isWinning = false;
 
     private void Awake()
     {
@@ -133,7 +135,6 @@ public class GameManager : MonoBehaviour
 
         // 把所有跟随的人质送达
         int count = followers.Count;
-
         deliveredHostages += count;
 
         // 让人质进入船（做法1：直接隐藏；做法2：移动到船内位置）
@@ -155,23 +156,40 @@ public class GameManager : MonoBehaviour
         followers.Clear();
 
         Debug.Log($"Delivered hostages: {deliveredHostages}/{requiredDeliveredHostages}");
-    }
 
+        UpdateHostageUI();
+    }
 
     void UpdateHostageUI()
     {
         if (hostageCountText != null)
         {
-            hostageCountText.text = $"{rescuedHostages} / {totalHostages} rescued";
+            hostageCountText.text = $"{deliveredHostages} / {requiredDeliveredHostages} rescued";
         }
     }
 
+    // ---------- Win ----------
+    public void TriggerWin()
+    {
+        // 新增：防重复触发（作用：只会进入一次胜利流程）
+        if (isWinning) return;
+        isWinning = true;
+        // 防止重复触发
+        StopAllCoroutines();
+        StartCoroutine(VictoryRoutine());
+    }
+
+
     IEnumerator VictoryRoutine()
     {
+        //先淡出
         yield return StartCoroutine(Fade(1));
 
         // 调用 FlowManager 打开胜利界面
-        FlowManager.Instance.ShowWin();
+        if (FlowManager.Instance != null)
+            FlowManager.Instance.ShowWin();
+        else
+            Debug.LogError("FlowManager.Instance is NULL，无法显示胜利界面。");
     }
 
 
