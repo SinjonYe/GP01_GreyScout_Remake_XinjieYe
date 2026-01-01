@@ -15,6 +15,12 @@ public class HostageFollower : MonoBehaviour
     [Header("队伍序号")]
     public int followIndex = 0; // 第几个跟随的人质（0,1,2...）
 
+    [Header("Carry Mode")]
+    public bool isCarried = false;
+    public Transform carryPoint;     // 玩家身上的挂点
+    public float carryRotateSpeed = 12f;
+
+
     private float timer;
 
     private void Reset()
@@ -27,8 +33,49 @@ public class HostageFollower : MonoBehaviour
         timer = 0;
     }
 
+    public void SetCarried(Transform point)
+    {
+        isCarried = true;
+        carryPoint = point;
+
+        if (agent != null)
+        {
+            agent.isStopped = true;
+            agent.enabled = false; // 关键：避免 NavMesh 抢位置导致抖动
+        }
+    }
+
+    public void ReleaseCarried()
+    {
+        isCarried = false;
+        carryPoint = null;
+
+        if (agent != null)
+        {
+            agent.enabled = true;
+            agent.isStopped = false;
+        }
+    }
+
+
     private void Update()
     {
+        if (isCarried && carryPoint != null)
+        {
+            // 位置直接贴到玩家挂点（手拉着跑最稳）
+            transform.position = carryPoint.position;
+
+            // 朝向跟随玩家（可选）
+            Vector3 fwd = carryPoint.forward;
+            fwd.y = 0;
+            if (fwd.sqrMagnitude > 0.001f)
+            {
+                Quaternion targetRot = Quaternion.LookRotation(fwd);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * carryRotateSpeed);
+            }
+            return;
+        }
+
         if (agent == null || followTarget == null) return;
 
         timer += Time.deltaTime;

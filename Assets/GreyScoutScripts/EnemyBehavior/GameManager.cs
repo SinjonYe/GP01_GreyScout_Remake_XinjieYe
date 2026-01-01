@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text hostageCountText;   // HUD 上显示 "1 / 1 rescued"
 
     public int totalHostages = 1;   // 场景里一共有多少人质
-    private int rescuedHostages = 0;
+    //private int rescuedHostages = 0;
 
     [Header("Hostage Win Condition")]
     public int requiredDeliveredHostages = 6;     // 需要送达船上的人数
@@ -30,6 +30,53 @@ public class GameManager : MonoBehaviour
     public Transform followTarget;                // 跟随目标（一般就是 player）
     private readonly System.Collections.Generic.List<HostageFollower> followers
         = new System.Collections.Generic.List<HostageFollower>();
+
+    [Header("Carry Hostage")]
+    public Transform carryPoint;   // 拖到 PlayerArmature/CarryPoint
+    private HostageFollower carriedFollower;
+    public bool isCarryMode = false;
+
+    public Animator playerAnimator; // 新增：玩家Animator（拖 PlayerArmature 上的 Animator）
+
+
+    public void StartCarry()
+    {
+        if (carriedFollower != null) return;
+        if (followers.Count == 0) return;
+        if (carryPoint == null) { Debug.LogError("carryPoint is null"); return; }
+
+        // 选择队伍第一个（最简单稳定）
+        carriedFollower = followers[0];
+
+        if (carriedFollower != null)
+        {
+            carriedFollower.SetCarried(carryPoint);
+            isCarryMode = true;
+
+            // 新增：通知 Animator 进入 Carry 状态
+            if (playerAnimator != null)
+                playerAnimator.SetBool("Carry", true);
+
+            Debug.Log("Carry started.");
+        }
+    }
+
+    public void StopCarry()
+    {
+        if (carriedFollower == null) return;
+
+        carriedFollower.ReleaseCarried();
+        carriedFollower = null;
+        isCarryMode = false;
+
+        // 新增：退出 Carry 状态
+        if (playerAnimator != null)
+            playerAnimator.SetBool("Carry", false);
+
+        Debug.Log("Carry stopped.");
+
+    }
+
 
     // 新增：防止重复触发胜利（作用：按E不会触发多次，也避免StopAllCoroutines误伤）
     private bool isWinning = false;
