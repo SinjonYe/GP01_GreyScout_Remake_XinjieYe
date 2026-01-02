@@ -4926,7 +4926,7 @@ Transform:
   m_GameObject: {fileID: 1375560719}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.343, y: 0.765, z: -0.113}
+  m_LocalPosition: {x: 0.633, y: -0.085, z: -0.312}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6228,7 +6228,7 @@ MonoBehaviour:
   requiredDeliveredHostages: 6
   deliveredHostages: 0
   followTarget: {fileID: 480538949}
-  carryPoint: {fileID: 1375560720}
+  carryPoint: {fileID: 1809887754}
   isCarryMode: 0
   playerAnimator: {fileID: 1543581326}
 --- !u!4 &1725751009
@@ -6393,6 +6393,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58a17356856a89f4b9da543f7aee0848, type: 3}
+--- !u!1 &1809887753
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1809887754}
+  m_Layer: 0
+  m_Name: HandGripPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1809887754
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809887753}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.91, z: -0.18}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1849954704}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1845565690
 GameObject:
   m_ObjectHideFlags: 0
@@ -6560,7 +6591,8 @@ Transform:
   m_LocalPosition: {x: 0.048, y: -0.201, z: 0.06}
   m_LocalScale: {x: 0.126, y: 0.22, z: 0.12599996}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1809887754}
   m_Father: {fileID: 1353955037}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &1849954705

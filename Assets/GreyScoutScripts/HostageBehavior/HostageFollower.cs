@@ -3,53 +3,98 @@ using UnityEngine.AI;
 
 public class HostageFollower : MonoBehaviour
 {
-    [Header("ÒıÓÃ")]
-    public NavMeshAgent agent;          // ÈËÖÊµÄ NavMeshAgent
-    public Transform followTarget;      // ¸úËæÄ¿±ê£¨Íæ¼Ò£©
+    [Header("å¼•ç”¨")]
+    public NavMeshAgent agent;          // äººè´¨çš„ NavMeshAgent
+    public Transform followTarget;      // è·Ÿéšç›®æ ‡ï¼ˆç©å®¶ï¼‰
 
-    [Header("¸úËæ²ÎÊı")]
-    public float followDistance = 1.5f; // ÀëÍæ¼Ò¶à½ü
-    public float followSideOffset = 0.6f; // ºáÏòÆ«ÒÆ£¨¶ÓÎéÅÅÁĞ£©
-    public float updateInterval = 0.15f;  // Ä¿±ê¸üĞÂÆµÂÊ
+    [Header("è·Ÿéšå‚æ•°")]
+    public float followDistance = 1.5f; // ç¦»ç©å®¶å¤šè¿‘
+    public float followSideOffset = 0.6f; // æ¨ªå‘åç§»ï¼ˆé˜Ÿä¼æ’åˆ—ï¼‰
+    public float updateInterval = 0.15f;  // ç›®æ ‡æ›´æ–°é¢‘ç‡
 
-    [Header("¶ÓÎéĞòºÅ")]
-    public int followIndex = 0; // µÚ¼¸¸ö¸úËæµÄÈËÖÊ£¨0,1,2...£©
+    [Header("é˜Ÿä¼åºå·")]
+    public int followIndex = 0; // ç¬¬å‡ ä¸ªè·Ÿéšçš„äººè´¨ï¼ˆ0,1,2...ï¼‰
 
     [Header("Carry Mode")]
     public bool isCarried = false;
-    public Transform carryPoint;     // Íæ¼ÒÉíÉÏµÄ¹Òµã
+    public Transform carryPoint;     // ç©å®¶èº«ä¸Šçš„æŒ‚ç‚¹
     public float carryRotateSpeed = 12f;
 
 
     private float timer;
 
-    private void Reset()
+    // æ–°å¢ï¼šç¼“å­˜æ‰€æœ‰ç¢°æ’ä½“/åˆšä½“
+    private Collider[] cachedColliders;
+    private Rigidbody cachedRb;
+
+    private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
+        if (agent == null) agent = GetComponent<NavMeshAgent>();
+        cachedColliders = GetComponentsInChildren<Collider>(true);
+        cachedRb = GetComponent<Rigidbody>();
     }
 
-    private void OnEnable()
-    {
-        timer = 0;
-    }
 
     public void SetCarried(Transform point)
     {
         isCarried = true;
         carryPoint = point;
 
+        // 1) å…³å¯¼èˆªï¼ˆä½ å·²åšï¼‰
         if (agent != null)
         {
             agent.isStopped = true;
-            agent.enabled = false; // ¹Ø¼ü£º±ÜÃâ NavMesh ÇÀÎ»ÖÃµ¼ÖÂ¶¶¶¯
+            agent.enabled = false; // å…³é”®ï¼šé¿å… NavMesh æŠ¢ä½ç½®å¯¼è‡´æŠ–åŠ¨
         }
+
+        // 2) å…³æ‰€æœ‰ Colliderï¼Œé¿å…æŠŠç©å®¶é¡¶é£
+        if (cachedColliders != null)
+        {
+            foreach (var col in cachedColliders)
+            {
+                if (col != null) col.enabled = false;
+            }
+        }
+
+        // 3) å¦‚æœ‰äººè´¨ Rigidbodyï¼Œè®¾ä¸ºè¿åŠ¨å­¦ï¼Œé¿å…ç‰©ç†åŠ›
+        if (cachedRb != null)
+        {
+            cachedRb.isKinematic = true;
+            cachedRb.velocity = Vector3.zero;
+            cachedRb.angularVelocity = Vector3.zero;
+        }
+
+        // 4) å¯é€‰ï¼šç›´æ¥æŒ‚åˆ° carryPointï¼ˆæ›´ç¨³ï¼Œä¸å®¹æ˜“æŠ–ï¼‰
+        transform.SetParent(carryPoint, worldPositionStays: false);
+        transform.localPosition = new Vector3(0.0f, 0.0f, -0.4f); // è®©äººè´¨ç«™åœ¨æ‰‹åæ–¹ä¸€ç‚¹
+        transform.localRotation = Quaternion.identity;
+
     }
 
     public void ReleaseCarried()
     {
         isCarried = false;
-        carryPoint = null;
 
+        // 1) è§£é™¤çˆ¶å­å…³ç³»
+        transform.SetParent(null, worldPositionStays: true);
+
+        // 2) æ¢å¤ Collider
+        if (cachedColliders != null)
+        {
+            foreach (var col in cachedColliders)
+            {
+                if (col != null) col.enabled = true;
+            }
+        }
+
+        // 3) æ¢å¤ Rigidbody
+        if (cachedRb != null)
+        {
+            cachedRb.isKinematic = false;
+        }
+
+        // 4) æ¢å¤ NavMeshAgent
+        carryPoint = null;
         if (agent != null)
         {
             agent.enabled = true;
@@ -60,21 +105,8 @@ public class HostageFollower : MonoBehaviour
 
     private void Update()
     {
-        if (isCarried && carryPoint != null)
-        {
-            // Î»ÖÃÖ±½ÓÌùµ½Íæ¼Ò¹Òµã£¨ÊÖÀ­×ÅÅÜ×îÎÈ£©
-            transform.position = carryPoint.position;
-
-            // ³¯Ïò¸úËæÍæ¼Ò£¨¿ÉÑ¡£©
-            Vector3 fwd = carryPoint.forward;
-            fwd.y = 0;
-            if (fwd.sqrMagnitude > 0.001f)
-            {
-                Quaternion targetRot = Quaternion.LookRotation(fwd);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * carryRotateSpeed);
-            }
-            return;
-        }
+        // Carry çŠ¶æ€ä¸‹ä¸å†èµ°é˜Ÿä¼è·Ÿéšé€»è¾‘ï¼ˆå› ä¸ºæˆ‘ä»¬å·²ç» parent äº†ï¼‰
+        if (isCarried) return;
 
         if (agent == null || followTarget == null) return;
 
@@ -82,23 +114,14 @@ public class HostageFollower : MonoBehaviour
         if (timer < updateInterval) return;
         timer = 0f;
 
-        // ¼ÆËã¶ÓÎéÄ¿±êÎ»ÖÃ£ºÔÚÍæ¼ÒÉíºóÅÅ¶Ó
         Vector3 behind = -followTarget.forward * (followDistance + followIndex * 0.9f);
-
-        // ÈÃ¶ÓÎéÉÔÎ¢×óÓÒ´í¿ª£¨±ÜÃâÍêÈ«ÖØµş£©
         float side = (followIndex % 2 == 0) ? 1f : -1f;
         Vector3 sideOffset = followTarget.right * side * followSideOffset * (1 + followIndex * 0.1f);
-
         Vector3 desiredPos = followTarget.position + behind + sideOffset;
 
-        // ÔÚ NavMesh ÉÏÕÒÒ»¸ö¿É×ßµã£¨±ÜÃâÄ¿±êµã²»ÔÚ NavMesh£©
         if (NavMesh.SamplePosition(desiredPos, out NavMeshHit hit, 2f, NavMesh.AllAreas))
-        {
             agent.SetDestination(hit.position);
-        }
         else
-        {
             agent.SetDestination(followTarget.position);
-        }
     }
 }
