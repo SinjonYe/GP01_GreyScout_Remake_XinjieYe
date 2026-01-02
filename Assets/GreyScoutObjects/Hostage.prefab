@@ -408,6 +408,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5731657148002554203}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7152519302225294827
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3457128883978860771}
+  m_Layer: 0
+  m_Name: HandGripPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3457128883978860771
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7152519302225294827}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.13, y: 0.92, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5446251402260691373}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8302140832264183038
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,6 +564,7 @@ GameObject:
   - component: {fileID: 7264239742844486681}
   - component: {fileID: 3906415018149037192}
   - component: {fileID: 6410154697324425700}
+  - component: {fileID: 2195507934068788373}
   m_Layer: 0
   m_Name: Hostage
   m_TagString: Untagged
@@ -630,6 +662,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2195507934068788373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8524236826643212906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7535000b85e699243bb30dcaba00d6a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 3906415018149037192}
+  followTarget: {fileID: 0}
+  followDistance: 1.5
+  followSideOffset: 0.6
+  updateInterval: 0.15
+  followIndex: 0
+  isCarried: 0
+  carryPoint: {fileID: 0}
+  handGrabPoint: {fileID: 4858782786331689762}
+  handGripPoint: {fileID: 3457128883978860771}
+  carryRotateSpeed: 12
+  hostageAnimator: {fileID: 6410154697324425700}
+  animCarryBool: Carried
+  animSpeedFloat: Speed
+  playerRoot: {fileID: 0}
 --- !u!1 &9059635864410911913
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,7 +831,8 @@ Transform:
   m_LocalPosition: {x: -0.6649465, y: 2.252533, z: 0}
   m_LocalScale: {x: 0.98475397, y: 1.5211957, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3457128883978860771}
   m_Father: {fileID: 5902345789281275913}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 168.138}
 --- !u!33 &6053047902334472149

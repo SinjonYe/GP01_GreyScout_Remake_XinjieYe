@@ -38,44 +38,67 @@ public class GameManager : MonoBehaviour
 
     public Animator playerAnimator; // 新增：玩家Animator（拖 PlayerArmature 上的 Animator）
 
+    [Header("Carry Hand Points")]
+    public Transform playerHandGripPoint; // 你层级里的 HandGripPoint
+
+    private void RefreshCarryChain()
+    {
+        if (followers.Count == 0) return;
+        if (playerHandGripPoint == null) return;
+
+        followers.Sort((a, b) => a.followIndex.CompareTo(b.followIndex));
+
+        Transform currentCarryFrom = playerHandGripPoint;
+
+        for (int i = 0; i < followers.Count; i++)
+        {
+            var f = followers[i];
+            if (f == null) continue;
+
+            f.playerRoot = player;
+
+            // 如果已经 carried，也强制重新绑定 carryPoint（保证链条正确）
+            f.SetCarried(currentCarryFrom);
+
+            currentCarryFrom = (f.handGripPoint != null) ? f.handGripPoint : f.transform;
+        }
+    }
 
     public void StartCarry()
     {
-        if (carriedFollower != null) return;
+        if (isCarryMode) return;
         if (followers.Count == 0) return;
-        if (carryPoint == null) { Debug.LogError("carryPoint is null"); return; }
+        if (playerHandGripPoint == null) { Debug.LogError("playerHandGripPoint is null"); return; }
 
-        // 选择队伍第一个（最简单稳定）
-        carriedFollower = followers[0];
+        isCarryMode = true;
+        RefreshCarryChain();
 
-        if (carriedFollower != null)
-        {
-            carriedFollower.SetCarried(carryPoint);
-            isCarryMode = true;
+        if (playerAnimator != null)
+            playerAnimator.SetBool("Carry", true);
 
-            // 新增：通知 Animator 进入 Carry 状态
-            if (playerAnimator != null)
-                playerAnimator.SetBool("Carry", true);
-
-            Debug.Log("Carry started.");
-        }
+        Debug.Log("Carry chain started.");
     }
 
     public void StopCarry()
     {
-        if (carriedFollower == null) return;
+        if (!isCarryMode) return;
 
-        carriedFollower.ReleaseCarried();
-        carriedFollower = null;
+        for (int i = 0; i < followers.Count; i++)
+        {
+            var f = followers[i];
+            if (f == null) continue;
+            f.ReleaseCarried();
+        }
+
         isCarryMode = false;
 
-        // 新增：退出 Carry 状态
         if (playerAnimator != null)
             playerAnimator.SetBool("Carry", false);
 
-        Debug.Log("Carry stopped.");
-
+        Debug.Log("Carry chain stopped.");
     }
+
+
 
 
     // 新增：防止重复触发胜利（作用：按E不会触发多次，也避免StopAllCoroutines误伤）
@@ -137,6 +160,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private IEnumerator RefreshCarryNextFrame()
+    {
+        yield return null; // 等一帧，让 NavMeshAgent/Transform 状态稳定
+        RefreshCarryChain();
+    }
+
+
     // --- Hostage Rescue System ---
     public void HostageRescuedAndFollow(HostageRescue hostage)
     {
@@ -174,6 +204,10 @@ public class GameManager : MonoBehaviour
         followers.Add(follower);
 
         Debug.Log($"Hostage join follow: {followers.Count} followers now.");
+
+        if (isCarryMode)
+            StartCoroutine(RefreshCarryNextFrame());
+
     }
 
     public void DeliverAllFollowersToShip(Transform shipStandPoint = null)
