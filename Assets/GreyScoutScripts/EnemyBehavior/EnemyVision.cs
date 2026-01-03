@@ -11,11 +11,19 @@ public class EnemyVision : MonoBehaviour
     public float viewAngle = 60f;      // 左右各 60°，总视野角 120°
     public float viewDistance = 10f;   // 最大视野距离
 
+    [Header("Ray Origin")]
+    public float eyeHeight = 1.6f;
+
     private void OnTriggerStay(Collider other)
     {
         if (!other.CompareTag("Player")) return;
+        
+        // 复活保护期：完全不进行视野判断，不进入警觉/追击
+        if (GameManager.Instance != null && GameManager.Instance.isRespawning)
+            return;
 
         Vector3 dir = other.transform.position - enemy.position;
+        dir.y = 0f; // 只看水平
         float distance = dir.magnitude;
 
         // 超出视野距离 → “？”（警觉）
@@ -26,13 +34,11 @@ public class EnemyVision : MonoBehaviour
             return;
         }
 
-        // 判断玩家是否在前方视野角内
+        // 角度判断
         Vector3 enemyForward = enemy.forward;
-        dir.y = 0;         // 忽略上下角度，只考虑水平角度
-        enemyForward.y = 0;
+        enemyForward.y = 0f;
 
         float angle = Vector3.Angle(enemyForward, dir);
-
         if (angle > viewAngle)
         {
             // 玩家在范围里但不在视野方向 → “？”
@@ -41,15 +47,18 @@ public class EnemyVision : MonoBehaviour
             return;
         }
 
-        // 射线检测：视线是否被遮挡
-        if (!Physics.Raycast(enemy.position, dir.normalized, out RaycastHit hit, viewDistance, obstacleMask))
+        // 射线：从眼睛高度发射，检测障碍物
+        Vector3 origin = enemy.position + Vector3.up * eyeHeight;
+        Vector3 rayDir = dir.normalized;
+
+        bool blocked = Physics.Raycast(origin, rayDir, distance, obstacleMask, QueryTriggerInteraction.Ignore);
+
+        if (!blocked)
         {
-            // 视线无遮挡 → 真正看到玩家 → !+ 追击
-            controller.PlayerSeen();
+            controller.PlayerSeen(); // PlayerSeen 内部也有 isRespawning 判断，双保险
         }
         else
         {
-            // 视线被墙挡住 → “？”
             if (controller.currentState != EnemyState.Chase)
                 controller.BecomeSuspicious(other.transform);
         }

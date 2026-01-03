@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     [Header("Carry Hand Points")]
     public Transform playerHandGripPoint; // 你层级里的 HandGripPoint
 
+    public bool isRespawning = false;
+
     private void RefreshCarryChain()
     {
         if (followers.Count == 0) return;
@@ -122,29 +124,81 @@ public class GameManager : MonoBehaviour
         StartCoroutine(RespawnRoutine());
     }
 
+    private void DropFollowersForRespawn()
+    {
+        // 如果在拉手状态，先停止（会把 carried 释放并尝试回 NavMesh）
+        if (isCarryMode)
+            StopCarry();
+
+        // 把跟随队伍解散，但不移动他们位置
+        for (int i = 0; i < followers.Count; i++)
+        {
+            var f = followers[i];
+            if (f == null) continue;
+
+            // 停止跟随（不再自动贴着玩家走）
+            f.enabled = false;
+
+            // 停止 agent（让他们站在原地）
+            if (f.agent != null)
+            {
+                if (f.agent.enabled && f.agent.isOnNavMesh)
+                {
+                    f.agent.ResetPath();
+                    f.agent.isStopped = true;
+                }
+            }
+
+            // 让这个人质恢复为“可救援状态”，并启用瞬间救援
+            HostageRescue rescue = f.GetComponent<HostageRescue>();
+            if (rescue != null)
+            {
+                rescue.ResetForReRescueInstant();
+            }
+        }
+
+        followers.Clear();
+
+        // 玩家动画状态也复位
+        isCarryMode = false;
+        if (playerAnimator != null) playerAnimator.SetBool("Carry", false);
+
+        // UI 安全清理
+        if (RescueUIManager.Instance != null)
+            RescueUIManager.Instance.HideAll();
+    }
+
     IEnumerator RespawnRoutine()
     {
-        // Fade to black
+        isRespawning = true;
+
+        // 1) Fade to black
         yield return StartCoroutine(Fade(1));
 
-        // --- 修复复活位置不稳定 ---
+        // 2) 重生前解散人质队伍（他们留在死亡位置）
+        DropFollowersForRespawn();
+
+        // 3) 传送玩家
         CharacterController cc = player.GetComponent<CharacterController>();
         if (cc != null) cc.enabled = false;
 
-        // 强制移动到玩家出生点
         player.position = playerSpawnPoint.position;
         player.rotation = playerSpawnPoint.rotation;
 
-        // 重新启用 CharacterController（极其重要）
         if (cc != null) cc.enabled = true;
-        // --------------------------------
 
-        // Reset enemy（让敌人回到巡逻状态）
-        enemyController.ResetPatrol();
+        // 4) 敌人脱战
+        if (enemyController != null)
+            enemyController.HardResetAfterRespawn();
 
-        // Fade back to gameplay
+        // 5) Fade back
         yield return StartCoroutine(Fade(0));
+
+        // 6) 保护期
+        yield return new WaitForSeconds(0.5f);
+        isRespawning = false;
     }
+
 
 
     IEnumerator Fade(float target)

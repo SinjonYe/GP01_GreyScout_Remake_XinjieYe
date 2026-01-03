@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\enemybehavior\\enemycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\enemybehavior\\enemycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|e:\\unityproject\\gp01_greyscout_remake_xinjieye\\assets\\greyscoutscripts\\hostagebehavior\\hostagefollower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\hostagebehavior\\hostagefollower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -42,10 +46,6 @@
       "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\flowmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\enemybehavior\\enemycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\enemybehavior\\enemycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\enemybehavior\\enemyvision.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\enemybehavior\\enemyvision.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -73,11 +73,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "PlayerCarryController.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\Player\\PlayerCarryController.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\Player\\PlayerCarryController.cs",
@@ -89,7 +89,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "ThirdPersonController.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\StarterAssets\\ThirdPersonController\\Scripts\\ThirdPersonController.cs",
               "RelativeDocumentMoniker": "Assets\\StarterAssets\\ThirdPersonController\\Scripts\\ThirdPersonController.cs",
@@ -101,7 +101,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "PlayerCrouch.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\Player\\PlayerCrouch.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\Player\\PlayerCrouch.cs",
@@ -113,7 +113,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "plant1.json",
               "DocumentMoniker": "D:\\UnityHub\\UnityPrograme\\Math_Coursework_LSystem\\Assets\\StreamingAssets\\plant1.json",
               "ToolTip": "D:\\UnityHub\\UnityPrograme\\Math_Coursework_LSystem\\Assets\\StreamingAssets\\plant1.json",
@@ -123,7 +123,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "ShipEscapeTrigger.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\HostageBehavior\\ShipEscapeTrigger.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\HostageBehavior\\ShipEscapeTrigger.cs",
@@ -135,13 +135,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "HostageFollower.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\HostageBehavior\\HostageFollower.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\HostageBehavior\\HostageFollower.cs",
               "ToolTip": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\HostageBehavior\\HostageFollower.cs",
               "RelativeToolTip": "Assets\\GreyScoutScripts\\HostageBehavior\\HostageFollower.cs",
-              "ViewState": "AgIAAJEAAAAAAAAAAAAqwKsAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAALwAAAAAAAAAAAApwNIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-27T23:59:45.482Z",
               "EditorCaption": ""
@@ -160,19 +160,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 0,
               "Title": "EnemyController.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyController.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyController.cs",
               "ToolTip": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyController.cs",
               "RelativeToolTip": "Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyController.cs",
-              "ViewState": "AgIAANYAAAAAAAAAAAAgwOYAAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAJ0AAAAAAAAAAAAowK4AAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-06T18:20:16.3Z"
+              "WhenOpened": "2025-12-06T18:20:16.3Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "EnemyAlertUI.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyAlertUI.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyAlertUI.cs",
@@ -184,7 +185,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "BillBoard.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\BillBoard.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\EnemyBehavior\\BillBoard.cs",
@@ -196,7 +197,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "GameManager.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\GameManager.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\EnemyBehavior\\GameManager.cs",
@@ -204,12 +205,11 @@
               "RelativeToolTip": "Assets\\GreyScoutScripts\\EnemyBehavior\\GameManager.cs",
               "ViewState": "AgIAAJIAAAAAAAAAAAAEwKEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-06T16:57:16.452Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-06T16:57:16.452Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "FlowManager.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\FlowManager.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\FlowManager.cs",

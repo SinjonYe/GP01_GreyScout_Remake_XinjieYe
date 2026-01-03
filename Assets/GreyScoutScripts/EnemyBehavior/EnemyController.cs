@@ -119,6 +119,7 @@ public class EnemyController : MonoBehaviour
     // 玩家进入视野时调用
     public void ChasePlayer()
     {
+        if (GameManager.Instance != null && GameManager.Instance.isRespawning) return;
         if (currentState == EnemyState.Chase) return; // 避免重复调用
 
         currentState = EnemyState.Chase;
@@ -224,6 +225,8 @@ public class EnemyController : MonoBehaviour
 
     public void PlayerSeen()
     {
+        if (GameManager.Instance != null && GameManager.Instance.isRespawning) return;
+
         if (alertUI != null)
             alertUI.ShowAlert();
 
@@ -241,6 +244,27 @@ public class EnemyController : MonoBehaviour
         {
             alertUI.Hide();
         }
+    }
+
+    public void HardResetAfterRespawn()
+    {
+        // 1) 停掉所有搜索协程/行为
+        StopAllCoroutines();
+
+        // 2) 清空警觉
+        isSuspicious = false;
+        suspiciousTimer = 0f;
+        suspiciousTarget = null;
+
+        // 3) 清空追击
+        chaseTimer = 0f;
+        lastKnownPlayerPos = transform.position; // 随便给一个安全值
+
+        // 4) 立刻隐藏 UI
+        if (alertUI != null) alertUI.Hide();
+
+        // 5) 强制回到巡逻
+        ResetPatrol();
     }
 
 }

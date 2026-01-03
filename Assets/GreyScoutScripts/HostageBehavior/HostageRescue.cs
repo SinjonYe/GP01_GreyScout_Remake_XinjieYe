@@ -11,6 +11,8 @@ public class HostageRescue : MonoBehaviour
     private float rescueProgress = 0f; // 当前进度
     private bool rescued = false;      // 是否已被救
 
+    public bool instantRescue = false; // 重生后对“已救过的人质”开启
+
     private void Start()
     {
         // 关键：把自己绑定给 InteractionArea
@@ -31,6 +33,22 @@ public class HostageRescue : MonoBehaviour
             RescueUIManager.Instance.HideAll();
             rescueProgress = 0;
             Current = null; // 离开范围，清空当前交互对象
+            return;
+        }
+
+        // --- 瞬间救援模式：按一下 E 立刻救 ---
+        if (instantRescue)
+        {
+            // 玩家在范围内时，显示 Press E
+            if (!Input.GetKeyDown(KeyCode.E))
+            {
+                RescueUIManager.Instance.ShowPressE();
+                RescueUIManager.Instance.HideProgressBar();
+                return;
+            }
+
+            // 按下 E 直接完成
+            CompleteRescue();
             return;
         }
 
@@ -84,6 +102,8 @@ public class HostageRescue : MonoBehaviour
 
     private void CompleteRescue()
     {
+        instantRescue = false; // 回到正常状态（下一次是否瞬救由 DropFollowersForRespawn 决定）
+
         rescued = true;
 
         // 隐藏所有 UI（保持原逻辑）
@@ -111,6 +131,32 @@ public class HostageRescue : MonoBehaviour
 
         // 也可以把自己这个救援脚本关掉（避免 Update 再跑）
         this.enabled = false;
+    }
+
+    public void ResetForReRescueInstant()
+    {
+        rescued = false;
+        rescueProgress = 0f;
+        instantRescue = true; // 开启瞬救
+
+        // 重新启用自己脚本
+        this.enabled = true;
+
+        // 恢复触发器与碰撞器
+        if (trigger != null)
+        {
+            trigger.enabled = true;
+            trigger.playerInside = false;
+
+            Collider col = trigger.GetComponent<Collider>();
+            if (col != null) col.enabled = true;
+
+            // 关键：保证 trigger 还知道自己是谁
+            trigger.parentHostage = this;
+        }
+
+        // 清理 Current（避免 UI/交互残留）
+        if (Current == this) Current = null;
     }
 
 
