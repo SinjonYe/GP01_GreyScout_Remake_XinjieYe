@@ -141,7 +141,7 @@
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\HostageBehavior\\HostageFollower.cs",
               "ToolTip": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\HostageBehavior\\HostageFollower.cs",
               "RelativeToolTip": "Assets\\GreyScoutScripts\\HostageBehavior\\HostageFollower.cs",
-              "ViewState": "AgIAAJEAAAAAAAAAAAAqwKsAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAALwAAAAAAAAAAAApwNIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-27T23:59:45.482Z",
               "EditorCaption": ""
@@ -204,8 +204,7 @@
               "RelativeToolTip": "Assets\\GreyScoutScripts\\EnemyBehavior\\GameManager.cs",
               "ViewState": "AgIAAJIAAAAAAAAAAAAEwKEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-06T16:57:16.452Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-06T16:57:16.452Z"
             },
             {
               "$type": "Document",

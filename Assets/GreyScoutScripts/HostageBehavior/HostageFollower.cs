@@ -124,24 +124,28 @@ public class HostageFollower : MonoBehaviour
         // 恢复 NavMeshAgent：先把人质“放回 NavMesh 上”再启用 agent
         if (agent != null)
         {
-            // 先把人质放回 NavMesh
+            // 1) 先尝试射线往下找地面（地面要有 Collider）
+            Vector3 origin = transform.position + Vector3.up * 2.0f;
+            if (Physics.Raycast(origin, Vector3.down, out RaycastHit groundHit, 20f, ~0, QueryTriggerInteraction.Ignore))
+            {
+                transform.position = groundHit.point;
+            }
+
+            // 2) 再吸附到 NavMesh（把半径从 2 提高到 6~10 更稳）
             Vector3 pos = transform.position;
-            if (NavMesh.SamplePosition(pos, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(pos, out NavMeshHit navHit, 10.0f, NavMesh.AllAreas))
             {
                 agent.enabled = true;
-
-                // 用 Warp 把 agent 放到 NavMesh 上（比直接改 transform 稳）
-                agent.Warp(hit.position);
-
+                agent.Warp(navHit.position);    // 用 Warp，避免 agent 与 transform 打架
                 agent.isStopped = false;
             }
             else
             {
-                // 找不到 NavMesh 就先别开 agent，避免继续报错
                 agent.enabled = false;
                 Debug.LogWarning($"[{name}] ReleaseCarried: no NavMesh nearby, keep agent disabled.");
             }
         }
+
 
 
         if (hostageAnimator != null)
@@ -154,24 +158,35 @@ public class HostageFollower : MonoBehaviour
         // ---------------- Carry：手牵手对齐 ----------------
         if (isCarried && carryPoint != null)
         {
-            // 让 handGrabPoint 的世界姿态 = carryPoint 的世界姿态
-            Quaternion targetRootRot = carryPoint.rotation * Quaternion.Inverse(handLocalRot);
+            // 1) 只取 carryPoint 的水平朝向（避免手骨骼上下翻转带来的倾斜）
+            Vector3 fwd = carryPoint.forward;
+            fwd.y = 0f;
+            if (fwd.sqrMagnitude < 0.0001f) fwd = Vector3.forward;
+
+            Quaternion carryYaw = Quaternion.LookRotation(fwd, Vector3.up);
+
+            // 2) root 旋转：用水平化后的 carryYaw，而不是 carryPoint.rotation
+            Quaternion targetRootRot = carryYaw * Quaternion.Inverse(handLocalRot);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRootRot, Time.deltaTime * carryRotateSpeed);
 
-            Vector3 targetRootPos = carryPoint.position - (transform.rotation * handLocalPos);
+            // 3) 位置：先算出目标根节点位置
+            Vector3 cp = carryPoint.position;
+
+            // 锁定 Y：跟随玩家根节点高度（避免手部动画上下抖动带着人质飞）
+            if (playerRoot != null) cp.y = playerRoot.position.y;
+
+            Vector3 targetRootPos = cp - (transform.rotation * handLocalPos);
+
+            // 4) 进一步保险：把目标点吸附到 NavMesh（只吸附高度/小范围，避免漂移）
+            if (NavMesh.SamplePosition(targetRootPos, out NavMeshHit carryHit, 1.0f, NavMesh.AllAreas))
+                targetRootPos = carryHit.position;
+
             transform.position = targetRootPos;
 
-            // 可选：驱动速度参数（用玩家位移）
-            if (hostageAnimator != null && playerRoot != null)
-            {
-                Vector3 dp = (playerRoot.position - lastPlayerPos);
-                float v = dp.magnitude / Mathf.Max(Time.deltaTime, 0.0001f);
-                hostageAnimator.SetFloat(animSpeedFloat, v);
-                lastPlayerPos = playerRoot.position;
-            }
-
+            // (可选) Animator Speed 逻辑你可保留
             return;
         }
+
 
         // ---------------- 跟随 ----------------
         if (agent == null || followTarget == null) return;
@@ -187,8 +202,8 @@ public class HostageFollower : MonoBehaviour
 
         Vector3 desiredPos = followTarget.position + behind + sideOffset;
 
-        if (NavMesh.SamplePosition(desiredPos, out NavMeshHit hit, 4f, NavMesh.AllAreas))
-            agent.SetDestination(hit.position);
+        if (NavMesh.SamplePosition(desiredPos, out NavMeshHit followhit, 4f, NavMesh.AllAreas))
+            agent.SetDestination(followhit.position);
         else
             agent.SetDestination(followTarget.position);
     }
