@@ -3,16 +3,16 @@ using TMPro;
 
 public class ShipEscapeTrigger : MonoBehaviour
 {
-    [Header("送达设置")]
-    public Transform shipStandPoint;          // 人质上船点（可选）
-    public bool deliverAllFollowers = true;   // 是否一次送达当前队伍全部人质
+    [Header("Delivery settings")]
+    public Transform shipStandPoint;          // Hostage board point
+    public bool deliverAllFollowers = true;   // Deliver all hostages in team once
 
-    [Header("提示UI（可选）")]
+    [Header("Prompt UI")]
     public TextMeshProUGUI shipHintText;      // “Press E to Start Engine”
 
     private bool playerInside = false;
 
-    // 修改点：防止重复触发胜利（作用：按E只触发一次）
+    // Prevent repeat win trigger (E only trigger once)
     private bool winTriggered = false;
 
     private void Start()
@@ -24,7 +24,7 @@ public class ShipEscapeTrigger : MonoBehaviour
     {
         if (!playerInside) return;
 
-        // 达成条件：送达满 6 个
+        // Win condition: Delivered count >=6
         bool readyToWin = GameManager.Instance.deliveredHostages >= GameManager.Instance.requiredDeliveredHostages;
 
         if (readyToWin)
@@ -33,8 +33,8 @@ public class ShipEscapeTrigger : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E) && !winTriggered)
             {
-                winTriggered = true; // 标记已触发胜利
-                GameManager.Instance.TriggerWin(); // 统一从 GameManager 触发胜利
+                winTriggered = true; // Mark win triggered
+                GameManager.Instance.TriggerWin(); // Trigger win via GameManager uniformly
             }
         }
         else
@@ -49,7 +49,7 @@ public class ShipEscapeTrigger : MonoBehaviour
 
         playerInside = true;
 
-        // 玩家回到船附近 → 送达人质
+        // Player near boat → Deliver hostages
         if (deliverAllFollowers)
         {
             GameManager.Instance.DeliverAllFollowersToShip(shipStandPoint);

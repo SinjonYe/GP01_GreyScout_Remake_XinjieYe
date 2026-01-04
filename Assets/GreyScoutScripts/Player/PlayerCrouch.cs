@@ -5,32 +5,32 @@ using StarterAssets;
 public class PlayerCrouch : MonoBehaviour
 {
     [Header("References")]
-    public ThirdPersonController thirdPerson;   // Starter Assets 的移动脚本
-    public Animator animator;                   // PlayerArmature 上的 Animator
-    public Transform cameraRoot;                // 你的 PlayerCameraRoot（不是 MainCamera）
+    public ThirdPersonController thirdPerson;   // Starter Assets move script
+    public Animator animator;                   // Animator on PlayerArmature
+    public Transform cameraRoot;                // Custom PlayerCameraRoot (Not MainCamera)
 
     [Header("Input")]
     public KeyCode crouchKey = KeyCode.C;
-    public bool toggleMode = true;              // true=按一下切换；false=按住下蹲
+    public bool toggleMode = true;              // true = Toggle by press; false = Crouch by hold
 
     [Header("CharacterController Height")]
     public float standHeight = 1.8f;
     public float crouchHeight = 1.1f;
-    public float standCenterY = 0.93f;          // 你当前截图里 CharacterController Center Y=0.93
+    public float standCenterY = 0.93f;
     public float crouchCenterY = 0.55f;
 
     [Header("Movement Speeds")]
-    public float standMoveSpeed = 2.0f;         // 你 ThirdPersonController 的 Move Speed
-    public float standSprintSpeed = 5.335f;     // 你 ThirdPersonController 的 Sprint Speed
-    public float crouchMoveSpeed = 1.2f;        // 下蹲移动更慢
-    public float crouchSprintSpeed = 1.8f;      // 下蹲时通常不允许冲刺，可设很低
+    public float standMoveSpeed = 2.0f;         // ThirdPersonController Move Speed
+    public float standSprintSpeed = 5.335f;     // ThirdPersonController Sprint Speed
+    public float crouchMoveSpeed = 1.2f;        // Slower speed when crouching
+    public float crouchSprintSpeed = 1.8f;      // Sprint forbidden while crouching, set low value
 
     [Header("Camera Root Offset")]
-    public float standCamLocalY = 0f;           // 以当前 PlayerCameraRoot 的 localPosition.y 为基准
-    public float crouchCamLocalY = -0.35f;      // 下蹲时相机降低多少（负值=往下）
+    public float standCamLocalY = 0f;           // Base on PlayerCameraRoot localPosition.y
+    public float crouchCamLocalY = -0.35f;      // Camera down offset when crouching (Negative = Down)
 
     [Header("Ceiling Check")]
-    public LayerMask obstacleMask = ~0;         // 默认检测所有层（你也可改成 Ground/Default）
+    public LayerMask obstacleMask = ~0;         // Default detect all layers
     public float headCheckRadius = 0.2f;
     public float headCheckExtra = 0.05f;
 
@@ -47,7 +47,7 @@ public class PlayerCrouch : MonoBehaviour
         if (animator == null) animator = GetComponent<Animator>();
         if (cameraRoot != null) camRootStartLocalPos = cameraRoot.localPosition;
 
-        // 用当前值初始化站立参数（避免你后面改过 Inspector 忘了同步）
+        // Init stand param with current value/ 用当前值初始化站立参数
         standHeight = cc.height;
         standCenterY = cc.center.y;
 
@@ -81,18 +81,18 @@ public class PlayerCrouch : MonoBehaviour
 
         IsCrouching = true;
 
-        // 1) 调整 CharacterController
+        // 1) Adjust CharacterController
         cc.height = crouchHeight;
         cc.center = new Vector3(cc.center.x, crouchCenterY, cc.center.z);
 
-        // 2) 调整移动速度（Starter Assets）
+        // 2) Adjust move speed (Starter Assets)
         if (thirdPerson != null)
         {
             thirdPerson.MoveSpeed = crouchMoveSpeed;
             thirdPerson.SprintSpeed = crouchSprintSpeed;
         }
 
-        // 3) 调整相机根节点高度（不改 Cinemachine，不破坏第三人称）
+        // 3) Adjust camera root height (No Cinemachine modify, no break third person)
         if (cameraRoot != null)
         {
             var p = camRootStartLocalPos;
@@ -100,7 +100,7 @@ public class PlayerCrouch : MonoBehaviour
             cameraRoot.localPosition = p;
         }
 
-        // 4) Animator 参数
+        // 4) Animator param
         if (animator != null)
             animator.SetBool("Crouch", true);
     }
@@ -109,7 +109,7 @@ public class PlayerCrouch : MonoBehaviour
     {
         if (!IsCrouching) return;
 
-        // 头顶有障碍，不允许站起来（防止穿模）
+        // Can't stand up if head blocked (Anti-clipping)
         if (HasCeiling())
             return;
 
@@ -142,7 +142,7 @@ public class PlayerCrouch : MonoBehaviour
 
     private bool HasCeiling()
     {
-        // 从角色中心往上检测一个小球，判断是否有顶
+        // Sphere cast up from character center, check head obstacle
         Vector3 origin = transform.position + Vector3.up * (cc.center.y + (cc.height * 0.5f));
         float checkDist = (standHeight - crouchHeight) + headCheckExtra;
         return Physics.SphereCast(origin, headCheckRadius, Vector3.up, out _, checkDist, obstacleMask, QueryTriggerInteraction.Ignore);

@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class EnemyPatrol : MonoBehaviour
 {
-    public Transform[] patrolPoints;
+    public Transform[] patrolPoints; // Patrol points array (move in order)
     public float waitTime = 2f;
 
     private int currentIndex = 0;
@@ -11,19 +11,20 @@ public class EnemyPatrol : MonoBehaviour
 
     private NavMeshAgent agent;
 
-    private void Start()
+    private void Start() // Enemy NavMesh movement component
     {
+        // Get NavMeshAgent and start first patrol
         agent = GetComponent<NavMeshAgent>();
         MoveToNextPoint();
     }
 
     private void Update()
     {
-        if (agent.remainingDistance <= 0.1f)
+        if (agent.remainingDistance <= 0.1f) // Check if reached target point
         {
-            waitCounter += Time.deltaTime;
+            waitCounter += Time.deltaTime; // Start wait timer after arrival
 
-            if (waitCounter >= waitTime)
+            if (waitCounter >= waitTime) // Move to next patrol point after waiting
             {
                 MoveToNextPoint();
                 waitCounter = 0;
@@ -31,6 +32,7 @@ public class EnemyPatrol : MonoBehaviour
         }
     }
 
+    // Set next patrol point and loop index
     private void MoveToNextPoint()
     {
         if (patrolPoints.Length == 0) return;

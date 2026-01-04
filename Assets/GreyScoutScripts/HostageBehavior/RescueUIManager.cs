@@ -7,9 +7,9 @@ public class RescueUIManager : MonoBehaviour
     public static RescueUIManager Instance;
 
     [Header("UI 元素")]
-    public CanvasGroup uiGroup;      // 整个 UI 的容器
-    public Slider progressBar;       // 进度条
-    public TextMeshProUGUI pressEText; // Press E 文本
+    public CanvasGroup uiGroup;      // UI container
+    public Slider progressBar;       // Progress bar
+    public TextMeshProUGUI pressEText; // Press E text
 
     private void Awake()
     {
@@ -17,20 +17,20 @@ public class RescueUIManager : MonoBehaviour
         HideAll();
     }
 
-    // 显示 Press E
+    // Show Press E
     public void ShowPressE()
     {
         uiGroup.alpha = 1;
         SetAlpha(pressEText, 1);
     }
 
-    // 隐藏 Press E
+    // Hide Press E
     public void HidePressE()
     {
         SetAlpha(pressEText, 0);
     }
 
-    // 显示进度条
+    // Show progress bar
     public void ShowProgressBar()
     {
         uiGroup.alpha = 1;
@@ -38,21 +38,21 @@ public class RescueUIManager : MonoBehaviour
             progressBar.gameObject.SetActive(true);
     }
 
-    // 隐藏进度条
+    // Hide progress bar
     public void HideProgressBar()
     {
         if (progressBar != null)
             progressBar.gameObject.SetActive(false);
     }
 
-    // 设置进度条数值
+    // Set progress bar value
     public void SetProgress(float value)
     {
         if (progressBar != null)
             progressBar.value = value;
     }
 
-    // 完整隐藏全部 UI（最重要）
+    // Hide all UI completely
     public void HideAll()
     {
         uiGroup.alpha = 0;
@@ -61,7 +61,7 @@ public class RescueUIManager : MonoBehaviour
         SetProgress(0);
     }
 
-    // 通用函数：修改透明度
+    // Common func : Set alpha
     private void SetAlpha(TMP_Text txt, float a)
     {
         var c = txt.color;

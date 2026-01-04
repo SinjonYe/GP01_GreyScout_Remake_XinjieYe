@@ -21,8 +21,8 @@ public class EnemyController : MonoBehaviour
     public EnemyPatrol patrol;
 
     [Header("Speeds")]
-    public float patrolSpeed = 2f;   // 巡逻速度
-    public float chaseSpeed = 4f;    // 追击速度
+    public float patrolSpeed = 2f;   // Patrol Speed
+    public float chaseSpeed = 4f;    // Chase Speed
 
     [Header("Chase Settings")]
     public float chaseTimeBeforeLost = 2f;
@@ -31,12 +31,12 @@ public class EnemyController : MonoBehaviour
     public EnemyAlertUI alertUI;
 
     [Header("Suspicious Settings")]
-    public float suspiciousTime = 4f; // 玩家在旁边多久后敌人转头
+    public float suspiciousTime = 4f; // Enemy turns to face player when player stays in proximity for a certain duration
     private float suspiciousTimer = 0f;
     private bool isSuspicious = false;
-    private Transform suspiciousTarget; // 玩家位置
+    private Transform suspiciousTarget; // Player Position
 
-    private Vector3 lastKnownPlayerPos; //记录玩家位置
+    private Vector3 lastKnownPlayerPos; // Record player position
 
 
     private void Start()
@@ -46,7 +46,7 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        // ---------------- 追击 ----------------
+        // ---------------- Chase ----------------
         if (currentState == EnemyState.Chase)
         {
             agent.SetDestination(player.position);
@@ -54,61 +54,61 @@ public class EnemyController : MonoBehaviour
             chaseTimer += Time.deltaTime;
             if (chaseTimer >= chaseTimeBeforeLost)
             {
-                ChangeState(EnemyState.Search); // 搜索状态
+                ChangeState(EnemyState.Search); // Search state
             }
 
         }
-        // ---------------- 搜索状态（去玩家最后位置） ----------------
+        // ---------------- Search state (go to player's last position) ----------------
         else if (currentState == EnemyState.Search)
         {
-            // 1. 移动到玩家最后出现的位置
-            agent.speed = patrolSpeed; // 搜索时用慢速
+            // 1. Move to the player's last seen position
+            agent.speed = patrolSpeed; // Move slowly during search state
             agent.SetDestination(lastKnownPlayerPos);
 
             float dist = Vector3.Distance(transform.position, lastKnownPlayerPos);
 
             if (dist < 0.5f)
             {
-                // 2. 到达后原地左右环顾（搜索动画）
+                // 2. Look left and right on the spot after arrival (search animation)
                 StartCoroutine(SearchRoutine());
-                ChangeState(EnemyState.Lost); // 避免重复启动
+                ChangeState(EnemyState.Lost); // Avoid repeated activation
             }
         }
-        // ---------------- 失去玩家后回到巡逻 ----------------
+        // ---------------- Return to patrol after losing player ----------------
         else if (currentState == EnemyState.Lost)
         {
             ResetPatrol();
-            alertUI.Hide();   // 回到巡逻隐藏图标
+            alertUI.Hide();   // Return to patrol and hide icon
         }
 
-        // ---------------- 警觉计时逻辑（玩家在附近但没被看到） ----------------
+        // ---------------- Alert timer logic (player nearby but not spotted) ----------------
         if (isSuspicious && currentState == EnemyState.Patrol)
         {
             suspiciousTimer += Time.deltaTime;
 
-            // 达到警觉时间（4秒）后转向玩家
+            // Turn to player after alert time (4s) is reached
             if (suspiciousTimer >= suspiciousTime)
             {
                 Vector3 lookDir = suspiciousTarget.position - transform.position;
                 lookDir.y = 0;
 
-                // 敌人转向玩家（平滑旋转）
+                // Enemy turns to player (smooth rotation)
                 transform.rotation = Quaternion.Slerp(
                     transform.rotation,
                     Quaternion.LookRotation(lookDir),
                     Time.deltaTime * 3f
                 );
 
-                // 如果转向后玩家已经在前方 30° 内 → 江湖规矩：直接认为“被看到了”
+                //  If player is within 30° ahead after rotation → Consider spotted by rule/ 如果转向后玩家已经在前方 30° 内 → 直接认为“被看到了”
                 float angle = Vector3.Angle(transform.forward, lookDir);
 
                 if (angle < 30f)
                 {
-                    // 结束警觉
+                    // End alert state
                     isSuspicious = false;
                     alertUI.Hide();
 
-                    // 真正看到玩家
+                    // Player is truly spotted
                     PlayerSeen();
                 }
             }
@@ -116,22 +116,22 @@ public class EnemyController : MonoBehaviour
         
     }
 
-    // 玩家进入视野时调用
+    // Called when player enters vision range/ 玩家进入视野时调用
     public void ChasePlayer()
     {
         if (GameManager.Instance != null && GameManager.Instance.isRespawning) return;
-        if (currentState == EnemyState.Chase) return; // 避免重复调用
+        if (currentState == EnemyState.Chase) return; // Avoid repeated calls
 
         currentState = EnemyState.Chase;
         chaseTimer = 0;
 
-        // 停止巡逻脚本与视野旋转
+        // Stop patrol script and vision rotation
         patrol.enabled = false;
         visionRotate.enabled = false;
 
         agent.speed = chaseSpeed;
 
-        // 在追击开始时，强制显示
+        //  Force display on chase start
         alertUI.ShowAlert();
     }
 
@@ -150,36 +150,36 @@ public class EnemyController : MonoBehaviour
         {
             timer += Time.deltaTime;
 
-            // 左右摆头
-            float angle = Mathf.Sin(Time.time * 3f) * 45f; // 左右45°
+            // Look left and right
+            float angle = Mathf.Sin(Time.time * 3f) * 45f; // Look left and right by 45°
             transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y + angle * Time.deltaTime, 0);
 
             yield return null;
         }
 
-        // 搜索结束 → 回到巡逻
+        // End search → Return to patrol
         ResetPatrol();
     }
 
 
-    // -------------------- 最重要：重置巡逻 --------------------
+    // -------------------- Priority: Reset Patrol  --------------------
     public void ResetPatrol()
     {
-        // 开启巡逻脚本与视觉旋转
+        // Enable patrol script and vision rotation
         patrol.enabled = true;
         visionRotate.enabled = true;
 
-        // 设置巡逻速度
+        // Set patrol movement speed
         agent.speed = patrolSpeed;
 
-        // 让巡逻脚本从第一个点重新开始（你的脚本用 currentIndex 自动管理）
+        // Restart patrol from the first waypoint (currentIndex auto managed)/ 让巡逻脚本从第一个点重新开始（你的脚本用 currentIndex 自动管理）
         agent.Warp(patrol.patrolPoints[0].position);
         agent.SetDestination(patrol.patrolPoints[0].position);
 
-        // 关闭追击计时
+        // Disable chase timer
         chaseTimer = 0;
 
-        // 切换状态
+        // Switch state
         ChangeState(EnemyState.Patrol);
 
         if (alertUI != null)
@@ -191,32 +191,32 @@ public class EnemyController : MonoBehaviour
 
     public void BecomeSuspicious(Transform player)
     {
-        if (currentState == EnemyState.Chase) return; // 追击时不进入警觉
-        if (isSuspicious) return; // 已经在警觉计时
+        if (currentState == EnemyState.Chase) return; // Do not enter alert state while chasing
+        if (isSuspicious) return; // Alert timer is already active
 
         isSuspicious = true;
         suspiciousTimer = 0f;
         suspiciousTarget = player;
 
-        alertUI.ShowSuspicious(); // 显示 ?
+        alertUI.ShowSuspicious(); // Show question mark ?
     }
 
-    //取消警觉
+    // Cancel alert state
     public void CancelSuspicious()
     {
         if (isSuspicious)
         {
-            isSuspicious = false;         // 停止计时
+            isSuspicious = false;         // Stop timer
             suspiciousTimer = 0f;
-            alertUI.Hide();               // 隐藏问号
-            suspiciousTarget = null;      // 清空目标
+            alertUI.Hide();               // Hide question mark
+            suspiciousTarget = null;      // Clear target
         }
     }
 
 
     public void PlayerNearButNotSeen()
     {
-        // 只有在巡逻状态下才显示 ?
+        // Only show question mark? in patrol state 
         if (currentState == EnemyState.Patrol && alertUI != null)
         {
             alertUI.ShowSuspicious();
@@ -230,10 +230,10 @@ public class EnemyController : MonoBehaviour
         if (alertUI != null)
             alertUI.ShowAlert();
 
-        // 保存玩家最后被看到的位置
+        // Save the player's last seen position
         lastKnownPlayerPos = player.position;
 
-        // 进入追击
+        // Enter chase state
         ChasePlayer();
     }
 
@@ -248,22 +248,22 @@ public class EnemyController : MonoBehaviour
 
     public void HardResetAfterRespawn()
     {
-        // 1) 停掉所有搜索协程/行为
+        // 1) Stop all search coroutines/behaviors
         StopAllCoroutines();
 
-        // 2) 清空警觉
+        // 2) Clear alert state
         isSuspicious = false;
         suspiciousTimer = 0f;
         suspiciousTarget = null;
 
-        // 3) 清空追击
+        // 3) Clear chase state
         chaseTimer = 0f;
-        lastKnownPlayerPos = transform.position; // 随便给一个安全值
+        lastKnownPlayerPos = transform.position; // Assign a safe default value
 
-        // 4) 立刻隐藏 UI
+        // 4) Hide UI immediately
         if (alertUI != null) alertUI.Hide();
 
-        // 5) 强制回到巡逻
+        // 5) Force return to patrol state
         ResetPatrol();
     }
 

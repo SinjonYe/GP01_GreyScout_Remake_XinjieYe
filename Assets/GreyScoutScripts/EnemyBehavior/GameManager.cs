@@ -17,29 +17,29 @@ public class GameManager : MonoBehaviour
     public float fadeDuration = 1f;
 
     [Header("Hostage UI")]
-    public TMP_Text hostageCountText;   // HUD 上显示 "1 / 1 rescued"
+    public TMP_Text hostageCountText;   // Display "1 / 1 rescued" on HUD
 
-    public int totalHostages = 1;   // 场景里一共有多少人质
+    public int totalHostages = 1;   // Total hostages in scene
     //private int rescuedHostages = 0;
 
     [Header("Hostage Win Condition")]
-    public int requiredDeliveredHostages = 6;     // 需要送达船上的人数
-    public int deliveredHostages = 0;             // 已送达人数
+    public int requiredDeliveredHostages = 6;     // Number of people need to send to the boat
+    public int deliveredHostages = 0;             // Number of people already delivered
 
     [Header("Hostage Follow List")]
-    public Transform followTarget;                // 跟随目标（一般就是 player）
+    public Transform followTarget;                // Follow target ( player)
     private readonly System.Collections.Generic.List<HostageFollower> followers
         = new System.Collections.Generic.List<HostageFollower>();
 
     [Header("Carry Hostage")]
-    public Transform carryPoint;   // 拖到 PlayerArmature/CarryPoint
+    public Transform carryPoint;   // Drag to PlayerArmature/CarryPoint
     private HostageFollower carriedFollower;
     public bool isCarryMode = false;
 
-    public Animator playerAnimator; // 新增：玩家Animator（拖 PlayerArmature 上的 Animator）
+    public Animator playerAnimator; // Player Animator (drag Animator on PlayerArmature)
 
     [Header("Carry Hand Points")]
-    public Transform playerHandGripPoint; // 你层级里的 HandGripPoint
+    public Transform playerHandGripPoint; // HandGripPoint in your layer
 
     public bool isRespawning = false;
 
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
 
             f.playerRoot = player;
 
-            // 如果已经 carried，也强制重新绑定 carryPoint（保证链条正确）
+            // Rebind carryPoint forcibly if already carried (ensure correct chain)
             f.SetCarried(currentCarryFrom);
 
             currentCarryFrom = (f.handGripPoint != null) ? f.handGripPoint : f.transform;
@@ -101,9 +101,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-
-
-    // 新增：防止重复触发胜利（作用：按E不会触发多次，也避免StopAllCoroutines误伤）
+    // Prevent repeated victory trigger/ 防止重复触发胜利（作用：按E不会触发多次，也避免StopAllCoroutines误伤）
     private bool isWinning = false;
 
     private void Awake()
@@ -126,20 +124,20 @@ public class GameManager : MonoBehaviour
 
     private void DropFollowersForRespawn()
     {
-        // 如果在拉手状态，先停止（会把 carried 释放并尝试回 NavMesh）
+        // Stop holding state first if active (release carried target and try to return to NavMesh)
         if (isCarryMode)
             StopCarry();
 
-        // 把跟随队伍解散，但不移动他们位置
+        // Dismiss follow team without moving their positions
         for (int i = 0; i < followers.Count; i++)
         {
             var f = followers[i];
             if (f == null) continue;
 
-            // 停止跟随（不再自动贴着玩家走）
+            // Stop following (no longer stick to player automatically)
             f.enabled = false;
 
-            // 停止 agent（让他们站在原地）
+            // Stop agent (make them stand still)
             if (f.agent != null)
             {
                 if (f.agent.enabled && f.agent.isOnNavMesh)
@@ -149,7 +147,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            // 让这个人质恢复为“可救援状态”，并启用瞬间救援
+            // Restore hostage to rescuable state, enable instant rescue
             HostageRescue rescue = f.GetComponent<HostageRescue>();
             if (rescue != null)
             {
@@ -159,11 +157,11 @@ public class GameManager : MonoBehaviour
 
         followers.Clear();
 
-        // 玩家动画状态也复位
+        // Reset player animation state
         isCarryMode = false;
         if (playerAnimator != null) playerAnimator.SetBool("Carry", false);
 
-        // UI 安全清理
+        // Safe clean up UI
         if (RescueUIManager.Instance != null)
             RescueUIManager.Instance.HideAll();
     }
@@ -175,10 +173,10 @@ public class GameManager : MonoBehaviour
         // 1) Fade to black
         yield return StartCoroutine(Fade(1));
 
-        // 2) 重生前解散人质队伍（他们留在死亡位置）
+        // 2) Dismiss hostage team before respawn (they stay at death position)
         DropFollowersForRespawn();
 
-        // 3) 传送玩家
+        // 3) Teleport player
         CharacterController cc = player.GetComponent<CharacterController>();
         if (cc != null) cc.enabled = false;
 
@@ -187,14 +185,14 @@ public class GameManager : MonoBehaviour
 
         if (cc != null) cc.enabled = true;
 
-        // 4) 敌人脱战
+        // 4) Enemies disengage combat
         if (enemyController != null)
             enemyController.HardResetAfterRespawn();
 
         // 5) Fade back
         yield return StartCoroutine(Fade(0));
 
-        // 6) 保护期
+        // 6) Invulnerability period
         yield return new WaitForSeconds(0.5f);
         isRespawning = false;
     }
@@ -208,7 +206,7 @@ public class GameManager : MonoBehaviour
 
         while (time < fadeDuration)
         {
-            time += Time.unscaledDeltaTime;   // 支持暂停
+            time += Time.unscaledDeltaTime;   // Support pause
             fadeScreen.alpha = Mathf.Lerp(start, target, time / fadeDuration);
             yield return null;
         }
@@ -216,7 +214,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator RefreshCarryNextFrame()
     {
-        yield return null; // 等一帧，让 NavMeshAgent/Transform 状态稳定
+        yield return null; // Wait for one frame to stabilize NavMeshAgent/Transform state
         RefreshCarryChain();
     }
 
@@ -226,15 +224,15 @@ public class GameManager : MonoBehaviour
     {
         if (hostage == null) return;
 
-        // 关闭营救交互，避免重复触发
+        // Disable rescue interaction, avoid repeated trigger
         hostage.DisableRescueInteraction();
 
-        // 给人质加/获取 HostageFollower
+        // Add HostageFollower component for hostage
         HostageFollower follower = hostage.GetComponent<HostageFollower>();
         if (follower == null)
             follower = hostage.gameObject.AddComponent<HostageFollower>();
 
-        // 确保有 NavMeshAgent（人质必须能走）
+        // Ensure NavMeshAgent is attached (hostage must be movable)
         if (follower.agent == null)
             follower.agent = hostage.GetComponent<NavMeshAgent>();
 
@@ -244,17 +242,17 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // 配置跟随目标与队伍序号
+        // Configure follow target and team index
         follower.followTarget = followTarget;
         follower.followIndex = followers.Count;
 
-        // 开启跟随脚本
+        // Enable follow script
         follower.enabled = true;
 
-        // 确保 agent 可用
+        // Ensure agent is usable
         follower.agent.isStopped = false;
 
-        // 加入队伍
+        // Join the team
         followers.Add(follower);
 
         Debug.Log($"Hostage join follow: {followers.Count} followers now.");
@@ -268,23 +266,23 @@ public class GameManager : MonoBehaviour
     {
         if (followers.Count == 0) return;
 
-        // 把所有跟随的人质送达
+        // Deliver all following hostages
         int count = followers.Count;
         deliveredHostages += count;
 
-        // 让人质进入船（做法1：直接隐藏；做法2：移动到船内位置）
+        // Make hostages board the boat (Method1: Hide directly; Method2: Move to inside-boat position)
         foreach (var f in followers)
         {
             if (f == null) continue;
 
             if (shipStandPoint != null)
             {
-                // 传送到船内某个点（可选）
+                // Teleport to a point inside the boat (optional)
                 f.transform.position = shipStandPoint.position;
                 f.transform.rotation = shipStandPoint.rotation;
             }
 
-            // 送达后隐藏（代表上船）
+            // Hide after delivery (represent boarding the boat)
             f.gameObject.SetActive(false);
         }
 
@@ -306,10 +304,10 @@ public class GameManager : MonoBehaviour
     // ---------- Win ----------
     public void TriggerWin()
     {
-        // 新增：防重复触发（作用：只会进入一次胜利流程）
+        // Prevent repeated trigger (Effect: Only enter victory process once)
         if (isWinning) return;
         isWinning = true;
-        // 防止重复触发
+        // Prevent duplicate trigger
         StopAllCoroutines();
         StartCoroutine(VictoryRoutine());
     }
@@ -317,10 +315,10 @@ public class GameManager : MonoBehaviour
 
     IEnumerator VictoryRoutine()
     {
-        //先淡出
+        // Fade out first
         yield return StartCoroutine(Fade(1));
 
-        // 调用 FlowManager 打开胜利界面
+        // Call FlowManager to open victory UI
         if (FlowManager.Instance != null)
             FlowManager.Instance.ShowWin();
         else

@@ -3,16 +3,60 @@
   "WorkspaceRootPath": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\hostagebehavior\\hostagefollower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\hostagebehavior\\hostagefollower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|e:\\unityproject\\gp01_greyscout_remake_xinjieye\\assets\\greyscoutscripts\\enemybehavior\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\enemybehavior\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\enemybehavior\\billboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\enemybehavior\\billboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\hostagebehavior\\hostagerescue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\hostagebehavior\\hostagerescue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\enemybehavior\\visionconerotate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\enemybehavior\\visionconerotate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\enemybehavior\\enemyvision.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\enemybehavior\\enemyvision.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\enemybehavior\\enemypatrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\enemybehavior\\enemypatrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\enemybehavior\\enemyminimapicon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\enemybehavior\\enemyminimapicon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\enemybehavior\\enemycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\enemybehavior\\enemycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|e:\\unityproject\\gp01_greyscout_remake_xinjieye\\assets\\greyscoutscripts\\hostagebehavior\\hostagefollower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\hostagebehavior\\hostagefollower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\enemybehavior\\enemycatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\enemybehavior\\enemycatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\enemybehavior\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\enemybehavior\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\enemybehavior\\enemyalertui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\enemybehavior\\enemyalertui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\hostagebehavior\\shipescapetrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\hostagebehavior\\shipescapetrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\flowmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\flowmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\hostagebehavior\\humanrescuetrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\hostagebehavior\\humanrescuetrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\player\\playercarrycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -30,40 +74,12 @@
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\UnityHub\\UnityPrograme\\Math_Coursework_LSystem\\Assets\\StreamingAssets\\plant1.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\hostagebehavior\\shipescapetrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\hostagebehavior\\shipescapetrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\enemybehavior\\enemyalertui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\enemybehavior\\enemyalertui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\enemybehavior\\billboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\enemybehavior\\billboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\flowmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\flowmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\enemybehavior\\enemyvision.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\enemybehavior\\enemyvision.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\hostagebehavior\\rescueuimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\hostagebehavior\\rescueuimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\hostagebehavior\\humanrescuetrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\hostagebehavior\\humanrescuetrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7D998399-80B4-FDF0-EA80-5BB13DBA095A}|Assembly-CSharp-Editor.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\tutorialinfo\\scripts\\editor\\readmeeditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7D998399-80B4-FDF0-EA80-5BB13DBA095A}|Assembly-CSharp-Editor.csproj|solutionrelative:assets\\tutorialinfo\\scripts\\editor\\readmeeditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\assets\\greyscoutscripts\\hostagebehavior\\hostagerescue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{88E09045-A737-D8D1-02E3-CC877EBD811C}|Assembly-CSharp.csproj|solutionrelative:assets\\greyscoutscripts\\hostagebehavior\\hostagerescue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -73,11 +89,59 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
+              "Title": "EnemyMiniMapIcon.cs",
+              "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyMiniMapIcon.cs",
+              "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyMiniMapIcon.cs",
+              "ToolTip": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyMiniMapIcon.cs",
+              "RelativeToolTip": "Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyMiniMapIcon.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-04T15:20:38.055Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "VisionConeRotate.cs",
+              "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\VisionConeRotate.cs",
+              "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\EnemyBehavior\\VisionConeRotate.cs",
+              "ToolTip": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\VisionConeRotate.cs",
+              "RelativeToolTip": "Assets\\GreyScoutScripts\\EnemyBehavior\\VisionConeRotate.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAQwCQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-03T13:24:59.252Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EnemyPatrol.cs",
+              "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyPatrol.cs",
+              "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyPatrol.cs",
+              "ToolTip": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyPatrol.cs",
+              "RelativeToolTip": "Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyPatrol.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-03T13:24:34.362Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "EnemyCatch.cs",
+              "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyCatch.cs",
+              "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyCatch.cs",
+              "ToolTip": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyCatch.cs",
+              "RelativeToolTip": "Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyCatch.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-03T13:23:20.077Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "PlayerCarryController.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\Player\\PlayerCarryController.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\Player\\PlayerCarryController.cs",
@@ -89,7 +153,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 15,
               "Title": "ThirdPersonController.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\StarterAssets\\ThirdPersonController\\Scripts\\ThirdPersonController.cs",
               "RelativeDocumentMoniker": "Assets\\StarterAssets\\ThirdPersonController\\Scripts\\ThirdPersonController.cs",
@@ -101,7 +165,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 16,
               "Title": "PlayerCrouch.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\Player\\PlayerCrouch.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\Player\\PlayerCrouch.cs",
@@ -113,7 +177,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 17,
               "Title": "plant1.json",
               "DocumentMoniker": "D:\\UnityHub\\UnityPrograme\\Math_Coursework_LSystem\\Assets\\StreamingAssets\\plant1.json",
               "ToolTip": "D:\\UnityHub\\UnityPrograme\\Math_Coursework_LSystem\\Assets\\StreamingAssets\\plant1.json",
@@ -123,7 +187,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "ShipEscapeTrigger.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\HostageBehavior\\ShipEscapeTrigger.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\HostageBehavior\\ShipEscapeTrigger.cs",
@@ -135,105 +199,105 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "HostageFollower.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\HostageBehavior\\HostageFollower.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\HostageBehavior\\HostageFollower.cs",
               "ToolTip": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\HostageBehavior\\HostageFollower.cs",
               "RelativeToolTip": "Assets\\GreyScoutScripts\\HostageBehavior\\HostageFollower.cs",
-              "ViewState": "AgIAALwAAAAAAAAAAAApwNIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAUAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-27T23:59:45.482Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 5,
               "Title": "EnemyVision.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyVision.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyVision.cs",
               "ToolTip": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyVision.cs",
               "RelativeToolTip": "Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyVision.cs",
-              "ViewState": "AgIAACUAAAAAAAAAAAAQwDUAAAA9AAAAAAAAAA==",
+              "ViewState": "AgIAADoAAAAAAAAAAAAQwE4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-06T18:22:30.04Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 8,
               "Title": "EnemyController.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyController.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyController.cs",
               "ToolTip": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyController.cs",
               "RelativeToolTip": "Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyController.cs",
-              "ViewState": "AgIAAJ0AAAAAAAAAAAAowK4AAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAAA0BAAAAAAAAAAAmwAwBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-06T18:20:16.3Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-06T18:20:16.3Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "EnemyAlertUI.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyAlertUI.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyAlertUI.cs",
               "ToolTip": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyAlertUI.cs",
               "RelativeToolTip": "Assets\\GreyScoutScripts\\EnemyBehavior\\EnemyAlertUI.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-06T18:18:34.153Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 2,
               "Title": "BillBoard.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\BillBoard.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\EnemyBehavior\\BillBoard.cs",
               "ToolTip": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\BillBoard.cs",
               "RelativeToolTip": "Assets\\GreyScoutScripts\\EnemyBehavior\\BillBoard.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-06T18:06:20.082Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "GameManager.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\GameManager.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\EnemyBehavior\\GameManager.cs",
               "ToolTip": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\EnemyBehavior\\GameManager.cs",
               "RelativeToolTip": "Assets\\GreyScoutScripts\\EnemyBehavior\\GameManager.cs",
-              "ViewState": "AgIAAJIAAAAAAAAAAAAEwKEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAIBJwEABAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-06T16:57:16.452Z"
+              "WhenOpened": "2025-12-06T16:57:16.452Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "FlowManager.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\FlowManager.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\FlowManager.cs",
               "ToolTip": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\FlowManager.cs",
               "RelativeToolTip": "Assets\\GreyScoutScripts\\FlowManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-06T16:39:59.758Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 3,
               "Title": "HostageRescue.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\HostageBehavior\\HostageRescue.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\HostageBehavior\\HostageRescue.cs",
               "ToolTip": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\HostageBehavior\\HostageRescue.cs",
               "RelativeToolTip": "Assets\\GreyScoutScripts\\HostageBehavior\\HostageRescue.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAG4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAGUAAAAAAAAAAAAkwGkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-03T23:06:05.027Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 18,
               "Title": "RescueUIManager.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\HostageBehavior\\RescueUIManager.cs",
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\HostageBehavior\\RescueUIManager.cs",
@@ -251,13 +315,13 @@
               "RelativeDocumentMoniker": "Assets\\GreyScoutScripts\\HostageBehavior\\HumanRescueTrigger.cs",
               "ToolTip": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\GreyScoutScripts\\HostageBehavior\\HumanRescueTrigger.cs",
               "RelativeToolTip": "Assets\\GreyScoutScripts\\HostageBehavior\\HumanRescueTrigger.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAwB4AAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-03T22:27:47.133Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 19,
               "Title": "ReadmeEditor.cs",
               "DocumentMoniker": "E:\\UnityProject\\GP01_GreyScout_Remake_XinjieYe\\Assets\\TutorialInfo\\Scripts\\Editor\\ReadmeEditor.cs",
               "RelativeDocumentMoniker": "Assets\\TutorialInfo\\Scripts\\Editor\\ReadmeEditor.cs",

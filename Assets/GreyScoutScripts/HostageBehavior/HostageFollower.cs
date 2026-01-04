@@ -3,36 +3,32 @@ using UnityEngine.AI;
 
 public class HostageFollower : MonoBehaviour
 {
-    [Header("引用")]
-    public NavMeshAgent agent;          // 人质的 NavMeshAgent
-    public Transform followTarget;      // 跟随目标（玩家）
+    [Header("Refer")]
+    public NavMeshAgent agent;          // Hostage's NavMeshAgent
+    public Transform followTarget;      // Follow target (Player)
 
-    [Header("跟随参数")]
-    public float followDistance = 1.5f; // 离玩家多近
-    public float followSideOffset = 0.6f; // 横向偏移（队伍排列）
-    public float updateInterval = 0.15f;  // 目标更新频率
+    [Header("Follow parameters")]
+    public float followDistance = 1.5f; // Follow distance to player
+    public float followSideOffset = 0.6f; // Horizontal offset (team formation)
+    public float updateInterval = 0.15f;  // Target update frequency
 
-    [Header("队伍序号")]
-    public int followIndex = 0; // 第几个跟随的人质（0,1,2...）
+    [Header("Team serial number")]
+    public int followIndex = 0; // Follower order index (0,1,2...)
 
     [Header("Carry Mode")]
     public bool isCarried = false;
 
-    // 玩家手的抓握点（HandGripPoint）
+    // Player's hand grip point (HandGripPoint)
     public Transform carryPoint;
 
-    // 人质自己的“被抓的手点”（HandGrabPoint）——你刚刚已经绑定了
+    // Hostage's grabbed hand point (HandGrabPoint)
     [Header("Hand Points")]
-    public Transform handGrabPoint;   // 这个人质用来“抓前面”的手点（已有）
-    public Transform handGripPoint;   // 这个人质“给后面抓”的手点（新增）
+    public Transform handGrabPoint;   // Hostage's hand point for grabbing front teammate
+    public Transform handGripPoint;   // Hostage's hand point for being grabbed by back teammate
 
     public float carryRotateSpeed = 18f;
 
-    /* 关键：缓存“手点到根节点”的相对偏移（防止抖动/缩放问题）
-    private Vector3 carryPosOffset;
-    private Quaternion carryRotOffset;*/
-
-    // 手抓点在“人质根节点空间”的局部位置与局部旋转（用于反解根节点）
+    // Local position & rotation of grip point in hostage root space (for root inverse solve)
     private Vector3 handLocalPos;
     private Quaternion handLocalRot;
 
@@ -45,7 +41,7 @@ public class HostageFollower : MonoBehaviour
     public string animSpeedFloat = "Speed";
 
     [Header("Player Root (for speed)")]
-    public Transform playerRoot; // 用来读玩家速度（可选）
+    public Transform playerRoot; //  For reading player movement speed
     private Vector3 lastPlayerPos;
 
 
@@ -77,14 +73,14 @@ public class HostageFollower : MonoBehaviour
             return;
         }
 
-        // 关键：记录“手抓点在根节点空间”的局部姿态
+        // Key：Record local pose of grip point in root transform space
         handLocalPos = transform.InverseTransformPoint(handGrabPoint.position);
         handLocalRot = Quaternion.Inverse(transform.rotation) * handGrabPoint.rotation;
 
-        // Carry 时禁用 NavMeshAgent，避免抢位置抖动/报错
+        // Disable NavMeshAgent when carried, avoid jitter/error from position conflict
         if (agent != null)
         {
-            // 只有在“已启用且在 NavMesh 上”时，才能调用 isStopped
+            // Only call isStopped when agent is enabled and on NavMesh
             if (agent.enabled && agent.isOnNavMesh)
                 agent.isStopped = true;
 
@@ -92,7 +88,7 @@ public class HostageFollower : MonoBehaviour
         }
 
 
-        // Carry 时禁用碰撞，避免把玩家顶飞
+        // Disable collider when carried, prevent pushing player away
         if (cachedColliders != null)
         {
             foreach (var c in cachedColliders)
@@ -111,7 +107,7 @@ public class HostageFollower : MonoBehaviour
         isCarried = false;
         carryPoint = null;
 
-        // 恢复碰撞
+        // Restore collider
         if (cachedColliders != null)
         {
             foreach (var c in cachedColliders)
@@ -121,22 +117,22 @@ public class HostageFollower : MonoBehaviour
             }
         }
 
-        // 恢复 NavMeshAgent：先把人质“放回 NavMesh 上”再启用 agent
+        // Restore NavMeshAgent: warp hostage back to NavMesh first then enable agent
         if (agent != null)
         {
-            // 1) 先尝试射线往下找地面（地面要有 Collider）
+            // 1) Raycast down to find ground (ground requires Collider)
             Vector3 origin = transform.position + Vector3.up * 2.0f;
             if (Physics.Raycast(origin, Vector3.down, out RaycastHit groundHit, 20f, ~0, QueryTriggerInteraction.Ignore))
             {
                 transform.position = groundHit.point;
             }
 
-            // 2) 再吸附到 NavMesh（把半径从 2 提高到 6~10 更稳）
+            // 2) Snap position to NavMesh
             Vector3 pos = transform.position;
             if (NavMesh.SamplePosition(pos, out NavMeshHit navHit, 10.0f, NavMesh.AllAreas))
             {
                 agent.enabled = true;
-                agent.Warp(navHit.position);    // 用 Warp，避免 agent 与 transform 打架
+                agent.Warp(navHit.position);    // Use Warp to prevent conflict between agent and transform position
                 agent.isStopped = false;
             }
             else
@@ -158,37 +154,37 @@ public class HostageFollower : MonoBehaviour
         // ---------------- Carry：手牵手对齐 ----------------
         if (isCarried && carryPoint != null)
         {
-            // 1) 只取 carryPoint 的水平朝向（避免手骨骼上下翻转带来的倾斜）
+            // 1) Only take horizontal facing of carryPoint (avoid tilt from hand bone flip)
             Vector3 fwd = carryPoint.forward;
             fwd.y = 0f;
             if (fwd.sqrMagnitude < 0.0001f) fwd = Vector3.forward;
 
             Quaternion carryYaw = Quaternion.LookRotation(fwd, Vector3.up);
 
-            // 2) root 旋转：用水平化后的 carryYaw，而不是 carryPoint.rotation
+            // 2) Root rotation : use flattened carryYaw instead of raw rotation
             Quaternion targetRootRot = carryYaw * Quaternion.Inverse(handLocalRot);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRootRot, Time.deltaTime * carryRotateSpeed);
 
-            // 3) 位置：先算出目标根节点位置
+            // 3) Position : calculate target root position first
             Vector3 cp = carryPoint.position;
 
-            // 锁定 Y：跟随玩家根节点高度（避免手部动画上下抖动带着人质飞）
+            // Lock Y axis : follow player root height (prevent hostage lift from hand animation jitter)
             if (playerRoot != null) cp.y = playerRoot.position.y;
 
             Vector3 targetRootPos = cp - (transform.rotation * handLocalPos);
 
-            // 4) 进一步保险：把目标点吸附到 NavMesh（只吸附高度/小范围，避免漂移）
+            // 4) Double insurance : snap target position to NavMesh (height/small range only, avoid drift)
             if (NavMesh.SamplePosition(targetRootPos, out NavMeshHit carryHit, 1.0f, NavMesh.AllAreas))
                 targetRootPos = carryHit.position;
 
             transform.position = targetRootPos;
 
-            // (可选) Animator Speed 逻辑你可保留
+            // Animator Speed logic is retained
             return;
         }
 
 
-        // ---------------- 跟随 ----------------
+        // ---------------- Follow State ----------------
         if (agent == null || followTarget == null) return;
         if (!agent.enabled) return;
 

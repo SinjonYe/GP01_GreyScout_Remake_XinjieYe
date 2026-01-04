@@ -3,7 +3,7 @@ using UnityEngine;
 public class HumanRescueTrigger : MonoBehaviour
 {
     [HideInInspector] public HostageRescue parentHostage;
-    // ↑ 在 HostageRescue.Start() 里会自动赋值
+    // ↑ Auto assigned in HostageRescue.Start()/ 在 HostageRescue.Start() 里会自动赋值
 
     public bool playerInside = false;
 
@@ -13,9 +13,9 @@ public class HumanRescueTrigger : MonoBehaviour
 
         playerInside = true;
 
-        // 防止 parentHostage 没绑定导致报错
+        // Prevent error when parentHostage unbound
         if (parentHostage != null)
-            // 通知对应的人质：玩家进入
+            // Notify target hostage: Player enter
             parentHostage.PlayerEntered();
     }
 
@@ -26,7 +26,7 @@ public class HumanRescueTrigger : MonoBehaviour
         playerInside = false;
 
         if (parentHostage != null)
-            // 通知对应的人质：玩家离开
+            // Notify target hostage: Player leave
             parentHostage.PlayerExited();
     }
 }

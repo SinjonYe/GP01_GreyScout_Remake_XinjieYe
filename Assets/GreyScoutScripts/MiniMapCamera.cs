@@ -7,7 +7,7 @@ public class MiniMapFollow : MonoBehaviour
     private void LateUpdate()
     {
         Vector3 pos = target.position;
-        pos.y += 20f;      // ¿Îµÿ∏ﬂ∂»
+        pos.y += 20f;      // Ground offset height
         transform.position = pos;
 
         transform.rotation = Quaternion.Euler(90, 0, 0);

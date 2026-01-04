@@ -6,7 +6,7 @@ public class Billboard : MonoBehaviour
     {
         if (Camera.main != null)
         {
-            // 让图标的朝向始终和相机朝向一致
+            // Make the orientation of the icon always consistent with the orientation of the camera.
             transform.forward = Camera.main.transform.forward;
         }
     }

@@ -3,14 +3,14 @@ using UnityEngine;
 public class EnemyAlertUI : MonoBehaviour
 {
     public SpriteRenderer iconRenderer;
-    public Sprite suspiciousSprite;   // ÎÊºÅ ?
-    public Sprite alertSprite;        // Ì¾ºÅ !
+    public Sprite suspiciousSprite;   // QuestionMark ?
+    public Sprite alertSprite;        // ExclamationMark !
 
     public Color alertColor = Color.white;
 
     private void Start()
     {
-        Hide(); // Ä¬ÈÏÒþ²Ø
+        Hide(); // Default hidden state
     }
 
     public void ShowSuspicious()

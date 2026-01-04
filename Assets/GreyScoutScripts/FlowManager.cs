@@ -7,7 +7,7 @@ public class FlowManager : MonoBehaviour
 
     [Header("UI Roots")]
     public GameObject startScreen;   // StartScreen Panel
-    public GameObject hud;           // HUD 根对象
+    public GameObject hud;           // HUD Root
     public GameObject winScreen;     // WinScreen Panel
 
     private void Awake()
@@ -17,34 +17,34 @@ public class FlowManager : MonoBehaviour
 
     private void Start()
     {
-        ShowStart(); // 进游戏默认先到开始界面
+        ShowStart(); // Default enter start screen on game launch
     }
 
-    // 进入「开始界面」状态
+    // Enter Start Screen state
     public void ShowStart()
     {
         if (startScreen != null) startScreen.SetActive(true);
         if (hud != null) hud.SetActive(false);
         if (winScreen != null) winScreen.SetActive(false);
 
-        Time.timeScale = 0f;  // 暂停游戏逻辑（玩家、敌人不动）
+        Time.timeScale = 0f;  // Pause game logic (Player & enemy freeze)
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
 
-    // 从开始界面进入游戏
+    // Enter game from start screen
     public void StartGame()
     {
         if (startScreen != null) startScreen.SetActive(false);
         if (hud != null) hud.SetActive(true);
         if (winScreen != null) winScreen.SetActive(false);
 
-        Time.timeScale = 1f;  // 正常时间
+        Time.timeScale = 1f;  // Normal time scale
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    // 进入胜利界面（由 GameManager 调用）
+    // Enter win screen (Called by GameManager)
     public void ShowWin()
     {
         if (hud != null) hud.SetActive(false);
@@ -55,16 +55,16 @@ public class FlowManager : MonoBehaviour
         Cursor.visible = true;
     }
 
-    // 重新开始关卡
+    // Restart level
     public void RestartGame()
     {
-        Time.timeScale = 1f;  // 防止暂停状态带到新场景
+        Time.timeScale = 1f;  // Prevent pause state carry to new scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void Update()
     {
-        // 在胜利界面按 R 也可以重开
+        // Press R to restart in win screen
         if (winScreen != null && winScreen.activeSelf)
         {
             if (Input.GetKeyDown(KeyCode.R))

@@ -8,8 +8,8 @@ public class EnemyVision : MonoBehaviour
     public EnemyController controller;
 
     [Header("Vision Settings")]
-    public float viewAngle = 60f;      // 左右各 60°，总视野角 120°
-    public float viewDistance = 10f;   // 最大视野距离
+    public float viewAngle = 60f;      //  60° left and right, total FOV 120°/ 左右各 60°，总视野角 120°
+    public float viewDistance = 10f;   // Max vision distance/ 最大视野距离
 
     [Header("Ray Origin")]
     public float eyeHeight = 1.6f;
@@ -17,16 +17,16 @@ public class EnemyVision : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if (!other.CompareTag("Player")) return;
-        
-        // 复活保护期：完全不进行视野判断，不进入警觉/追击
+
+        // Respawn invulnerability: disable all vision check, no alert/chase/ 复活保护期：完全不进行视野判断，不进入警觉/追击
         if (GameManager.Instance != null && GameManager.Instance.isRespawning)
             return;
 
         Vector3 dir = other.transform.position - enemy.position;
-        dir.y = 0f; // 只看水平
+        dir.y = 0f; // Horizontal vision only
         float distance = dir.magnitude;
 
-        // 超出视野距离 → “？”（警觉）
+        //  Beyond vision distance → Alert state (?)
         if (distance > viewDistance)
         {
             if (controller.currentState != EnemyState.Chase)
@@ -34,20 +34,20 @@ public class EnemyVision : MonoBehaviour
             return;
         }
 
-        // 角度判断
+        // Angle check
         Vector3 enemyForward = enemy.forward;
         enemyForward.y = 0f;
 
         float angle = Vector3.Angle(enemyForward, dir);
         if (angle > viewAngle)
         {
-            // 玩家在范围里但不在视野方向 → “？”
+            // Player in range but not in vision direction → Alert state (?)
             if (controller.currentState != EnemyState.Chase)
                 controller.BecomeSuspicious(other.transform);
             return;
         }
 
-        // 射线：从眼睛高度发射，检测障碍物
+        // Raycast: shoot from eye height, detect obstacles
         Vector3 origin = enemy.position + Vector3.up * eyeHeight;
         Vector3 rayDir = dir.normalized;
 
@@ -55,7 +55,7 @@ public class EnemyVision : MonoBehaviour
 
         if (!blocked)
         {
-            controller.PlayerSeen(); // PlayerSeen 内部也有 isRespawning 判断，双保险
+            controller.PlayerSeen(); // Double insurance: PlayerSeen contains isRespawning check
         }
         else
         {
@@ -68,11 +68,11 @@ public class EnemyVision : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        // 只有回到 Patrol 状态才需要隐藏图标
+        // Hide icon only when return to Patrol state
         if (controller.currentState == EnemyState.Patrol)
         {
             controller.PlayerOutOfVision();
-            controller.CancelSuspicious();   // 玩家离开范围 → 取消警觉
+            controller.CancelSuspicious();   // Player out of range → Cancel alert state
         }
     }
 }
